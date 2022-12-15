@@ -44,6 +44,7 @@ int		init_data(int fd, t_data *data);
 /*-----------------------------------LIBFT-----------------------------------*/
 
 int		ft_strlen(char *str);
+int		ft_atoi(char *str, int *i, int val);
 char	*ft_strjoin(char *s1, char *s2);
 
 /*------------------------------------T^T------------------------------------*/

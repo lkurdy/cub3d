@@ -40,57 +40,62 @@ static char	*init_strfd(int fd)
 	return (free(buffer), strfd);
 }
 
-char	*init_path(char *strfd, int *i)
+int		*init_color(char *str)
 {
-	char	*str;
-	int		j;
+	int	*color;
+	int	i;
 
-	j = 0;
-	while (strfd[*i] && (strfd[*i] != '\n' || strfd[*i] != ' ' || strfd[*i] != '\t'))
-	{
-		j++;
-		*i += 1;
-	}
-	str = malloc(sizeof(char) * (j + 1));
 	if (!str)
+		return (free(str), NULL);
+	color = malloc(sizeof(int) * 3);
+	if (!color)
 		return (0);
-	*i -= j;
-	j = 0;
-	while (strfd[*i] && (strfd[*i] != '\n' || strfd[*i] != ' ' || strfd[*i] != '\t'))
-	{
-		str[j++] = strfd[*i];
-		*i += 1;
-	}
-	str[j] = '\0';
-	return (str);
+	i = 0;
+	color[0] = ft_atoi(str, &i, 1);
+	if (color[0] == -1)
+		return (free(str), free(color), NULL);
+	i += 1;
+	color[1] = ft_atoi(str, &i, 1);
+	if (color[1] == -1)
+		return (free(str), free(color), NULL);
+	i += 1;
+	color[2] = ft_atoi(str, &i, 0);
+	if (color[2] == -1)
+		return (free(str), free(color), NULL);
+	return (free(str), color);
 }
 
-char	*init_utils(char *strfd, char *id)
+char	*init_path(char *str, char f, char s, int j)
 {
 	char		*path;
+	static int	i;
 
-	while (strfd[i] && (strfd[i] == '\n' || strfd[i] == ' ' || strfd[i] == '\t'))
+	while (str[i] && (str[i] == '\n' || str[i] == ' ' || str[i] == '\t'))
 		i++;
-	if ((strfd[i] && strfd[i] != id[0]) || (strfd[i + 1] && strfd[i + 1] != id[1]))
-		return (write(2, "Error\nInvalid data ID\n", 22), NULL);
-	j += 2;
-	while (strfd[i] && (strfd[i] != '\n' || strfd[i] != ' ' || strfd[i] != '\t'))
+	if ((str[i] && str[i] != f) || (s && str[i + 1] && str[i + 1] != s)
+		|| (s && str[i + 2] && str[i + 2] != ' ' && str[i + 2] != '\t')
+		|| (!s && str[i + 1] != ' ' && str[i + 1] != '\t'))
+		return (0);
+	while (str[i] && str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
 		i++;
-	while (strfd[i] && (strfd[i] == '\n' || strfd[i] == ' ' || strfd[i] == '\t'))
+	while (str[i] && (str[i] == '\n' || str[i] == ' ' || str[i] == '\t'))
 		i++;
-	path = init_path(strfd, &i);
+	while (str[++i] && str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
+		j++;
+	path = malloc(sizeof(char) * (j + 2));
 	if (!path)
-	{
-		write(2, "Error\nAn unexpected error has occurred\n", 39);
-		return (NULL);
-	}
+		return (0);
+	i -= j + 1;
+	j = 0;
+	while (str[i] && str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
+		path[j++] = str[i++];
+	path[j] = '\0';
 	return (path);
 }
 
 int	init_data(int fd, t_data *data)
 {
 	char	*strfd;
-	int		i;
 
 	strfd = init_strfd(fd);
 	if (!strfd)
@@ -98,18 +103,20 @@ int	init_data(int fd, t_data *data)
 		write(2, "Error\nAn unexpected error has occurred\n", 39);
 		return (free(strfd), -1);
 	}
-	i = 0;
-	data->NO_path = init_utils(strfd, "NO");
-	data->SO_path = init_utils(strfd, "SO");
-	data->WE_path = init_utils(strfd, "WE");
-	data->EA_path = init_utils(strfd, "EA");
-	// data->F_color = f(init_utils(strfd, data), data);
-	// data->C_color = f(init_utils(strfd, data), data);
-	if (!data->NO_path || !data->SO_path || !data->WE_path || !data->EA_path)
-		return (free(strfd), -1);
+	data->NO_path = init_path(strfd, 'N', 'O', 0);
+	data->SO_path = init_path(strfd, 'S', 'O', 0);
+	data->WE_path = init_path(strfd, 'W', 'E', 0);
+	data->EA_path = init_path(strfd, 'E', 'A', 0);
+	data->F_color = init_color(init_path(strfd, 'F', 0, 0));
+	data->C_color = init_color(init_path(strfd, 'C', 0, 0));
+	if (!data->NO_path || !data->SO_path || !data->WE_path || !data->EA_path
+		|| !data->F_color || !data->C_color)
+		return (write(2, "Error\nInvalid data\n", 19), free(strfd), -1);
 	printf("%s\n", data->NO_path);
 	printf("%s\n", data->SO_path);
 	printf("%s\n", data->WE_path);
 	printf("%s\n", data->EA_path);
+	printf("%d,%d,%d\n", data->F_color[0], data->F_color[1], data->F_color[2]);
+	printf("%d,%d,%d\n", data->C_color[0], data->C_color[1], data->C_color[2]);
 	return (free(strfd), 0);
 }
