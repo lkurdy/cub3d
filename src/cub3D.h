@@ -1,0 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/12 06:57:31 by rben-tkh          #+#    #+#             */
+/*   Updated: 2022/12/12 06:57:33 by rben-tkh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CUB3D_H
+#define CUB3D_H
+
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <errno.h>
+# include <math.h>
+# include "../mlx/mlx.h"
+
+/*-----------------------------------S_DATA----------------------------------*/
+
+typedef struct s_data
+{
+	char	*NO_path;
+	char	*SO_path;
+	char	*WE_path;
+	char	*EA_path;
+	int		*F_color;
+	int		*C_color;
+	char	**map;
+	char	pos;
+}	t_data;
+
+/*-----------------------------------UTILS-----------------------------------*/
+
+int		init_data(int fd, t_data *data);
+
+/*-----------------------------------LIBFT-----------------------------------*/
+
+int		ft_strlen(char *str);
+char	*ft_strjoin(char *s1, char *s2);
+
+/*------------------------------------T^T------------------------------------*/
+
+#endif
