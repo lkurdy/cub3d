@@ -14,8 +14,9 @@
 
 static int	check_error(int ac, char **av, char *file, t_data *data)
 {
-	int	len;
-	int	fd;
+	char	*strfd;
+	int		len;
+	int		fd;
 
 	if (ac != 2 || !av)
 		return (write(2, "Error\nInvalid arguments\n", 24), -1);
@@ -26,7 +27,13 @@ static int	check_error(int ac, char **av, char *file, t_data *data)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (close(fd), write(2, "Error\n", 6), perror(NULL), -1);
-	if (init_data(fd, data))
+	strfd = init_strfd(fd);
+	if (!strfd)
+	{
+		write(2, "Error\nAn unexpected error has occurred\n", 39);
+		return (free(strfd), close(fd), -1);
+	}
+	if (init_data(strfd, data))
 		return (close(fd), -1);
 	return (close(fd), 0);
 }

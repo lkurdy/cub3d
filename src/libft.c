@@ -24,6 +24,24 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
+char	*ft_strdup(char *str)
+{
+	char	*cpy;
+	int		i;
+
+	i = 0;
+	cpy = malloc(sizeof(char) * ft_strlen(str));
+	if (!cpy)
+		return (0);
+	while (str[i] && str[i + 1])
+	{
+		cpy[i] = str[i];
+		i++;
+	}
+	cpy[i] = '\0';
+	return (cpy);
+}
+
 int	ft_atoi(char *str, int *i, int val)
 {
 	long	nb;

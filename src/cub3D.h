@@ -37,13 +37,15 @@ typedef struct s_data
 	char	pos;
 }	t_data;
 
-/*-----------------------------------UTILS-----------------------------------*/
+/*---------------------------------INIT_DATA---------------------------------*/
 
-int		init_data(int fd, t_data *data);
+char	*init_strfd(int fd);
+int		init_data(char *strfd, t_data *data);
 
 /*-----------------------------------LIBFT-----------------------------------*/
 
 int		ft_strlen(char *str);
+char	*ft_strdup(char *str);
 int		ft_atoi(char *str, int *i, int val);
 char	*ft_strjoin(char *s1, char *s2);
 
