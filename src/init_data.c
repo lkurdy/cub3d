@@ -143,11 +143,5 @@ int	init_data(char *strfd, t_data *data)
 	if (!data->NO_path || !data->SO_path || !data->WE_path || !data->EA_path
 		|| !data->F_color || !data->C_color)
 		return (write(2, "Error\nInvalid data\n", 19), free(strfd), -1);
-	printf("%s\n", data->NO_path);
-	printf("%s\n", data->SO_path);
-	printf("%s\n", data->WE_path);
-	printf("%s\n", data->EA_path);
-	printf("%d,%d,%d\n", data->F_color[0], data->F_color[1], data->F_color[2]);
-	printf("%d,%d,%d\n", data->C_color[0], data->C_color[1], data->C_color[2]);
 	return (free(strfd), 0);
 }

@@ -10,7 +10,7 @@ EA ./path_to_the_east_texture
 SO ./path_to_the_south_texture
 
 
-       C 225,300,5
+      C  225,300,5
 
 
 		1111111111111111111111111
