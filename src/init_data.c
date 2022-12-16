@@ -115,6 +115,58 @@ char	*init_path(char *str, int j)
 	return (path);
 }
 
+char	*init_map(char *str, int i)
+{
+	char	*map;
+	int		j;
+
+	j = 0;
+	while (str[i] && j != 12)
+	{
+		while (str[i] && (str[i] == '\n' || str[i] == ' ' || str[i] == '\t'))
+			i++;
+		while (str[i] && str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
+			i++;
+		j++;
+	}
+	map = malloc(sizeof(char) * (ft_strlen(str) - i + 1));
+	if (!map)
+		return (0);
+	j = 0;
+	while (str[i])
+		map[j++] = str[i++];
+	map[j] = '\0';
+	return (map);
+}
+
+char	check_pos(char **map)
+{
+	int		i;
+	int		j;
+	int		count;
+	char	c;
+
+	i = 0;
+	count = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != ' ')
+			{
+				c = map[i][j];
+				count++;
+			}
+			j++;
+		}
+		i++;
+	}
+	if (count != 1 || (c != 'N' && c != 'S' && c != 'W' && c != 'E'))
+		return (0);
+	return (c);
+}
+
 int	init_data(char *strfd, t_data *data)
 {
 	char	*info;
@@ -143,5 +195,9 @@ int	init_data(char *strfd, t_data *data)
 	if (!data->NO_path || !data->SO_path || !data->WE_path || !data->EA_path
 		|| !data->F_color || !data->C_color)
 		return (write(2, "Error\nInvalid data\n", 19), free(strfd), -1);
+	data->map = ft_split(init_map(strfd, 0), '\n');
+	data->pos = check_pos(data->map);
+	if (!data->pos)
+		return (write(2, "Error\nInvalid map\n", 19), free(strfd), -1);
 	return (free(strfd), 0);
 }

@@ -49,6 +49,11 @@ char	*ft_strdup(char *str);
 int		ft_atoi(char *str, int *i, int val);
 char	*ft_strjoin(char *s1, char *s2);
 
+/*---------------------------------FT_SPLIT----------------------------------*/
+
+char	**ft_split(char *s, char c);
+char	**ft_free(char **dest, int j);
+
 /*------------------------------------T^T------------------------------------*/
 
 #endif
