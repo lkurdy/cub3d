@@ -65,27 +65,6 @@ int		*init_color(char *str)
 	return (free(str), color);
 }
 
-int	check_id(char *str, int i, char c)
-{
-	if (c != 'N' && c != 'S' && c != 'W' && c != 'E' && c != 'F' && c != 'C')
-		return (-1);
-	else if (c == 'N' && str[i] && str[i] != 'O')
-		return (-1);
-	else if (c == 'S' && str[i] && str[i] != 'O')
-		return (-1);
-	else if (c == 'W' && str[i] && str[i] != 'E')
-		return (-1);
-	else if (c == 'E' && str[i] && str[i] != 'A')
-		return (-1);
-	else if ((c == 'N' || c == 'S' || c == 'W' || c == 'E')
-		&& str[i + 1] && str[i + 1] != ' ' && str[i + 1] != '\t')
-		return (-1);
-	else if ((c == 'F' || c == 'C')
-		&& str[i] && str[i] != ' ' && str[i] != '\t')
-		return (-1);
-	return (0);
-}
-
 char	*init_path(char *str, int j)
 {
 	char		*path;
@@ -137,34 +116,6 @@ char	*init_map(char *str, int i)
 		map[j++] = str[i++];
 	map[j] = '\0';
 	return (map);
-}
-
-char	check_pos(char **map)
-{
-	int		i;
-	int		j;
-	int		count;
-	char	c;
-
-	i = 0;
-	count = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != ' ')
-			{
-				c = map[i][j];
-				count++;
-			}
-			j++;
-		}
-		i++;
-	}
-	if (count != 1 || (c != 'N' && c != 'S' && c != 'W' && c != 'E'))
-		return (0);
-	return (c);
 }
 
 int	init_data(char *strfd, t_data *data)

@@ -42,6 +42,12 @@ typedef struct s_data
 char	*init_strfd(int fd);
 int		init_data(char *strfd, t_data *data);
 
+/*----------------------------------PARSING----------------------------------*/
+
+int		check_id(char *str, int i, char c);
+char	check_pos(char **map);
+int		check_error(int ac, char **av, char *file, t_data *data);
+
 /*-----------------------------------LIBFT-----------------------------------*/
 
 int		ft_strlen(char *str);
