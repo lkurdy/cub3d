@@ -94,12 +94,15 @@ char	*init_path(char *str, int j)
 	return (path);
 }
 
-char	*init_map(char *str, int i)
+char	*init_map(char *str, char **data)
 {
 	char	*map;
+	int		i;
 	int		j;
 
+	i = 0;
 	j = 0;
+	(void)data;
 	while (str[i] && j != 12)
 	{
 		while (str[i] && (str[i] == '\n' || str[i] == ' ' || str[i] == '\t'))
@@ -108,13 +111,15 @@ char	*init_map(char *str, int i)
 			i++;
 		j++;
 	}
-	map = malloc(sizeof(char) * (ft_strlen(str) - i + 1));
+	map = malloc(sizeof(char) * (ft_strlen(str) - i + 2));
 	if (!map)
 		return (0);
 	j = 0;
 	while (str[i])
 		map[j++] = str[i++];
+	map[j++] = '\n';
 	map[j] = '\0';
+	data = ft_split(ft_strdup(map), '\n');
 	return (map);
 }
 
@@ -146,9 +151,7 @@ int	init_data(char *strfd, t_data *data)
 	if (!data->NO_path || !data->SO_path || !data->WE_path || !data->EA_path
 		|| !data->F_color || !data->C_color)
 		return (write(2, "Error\nInvalid data\n", 19), free(strfd), -1);
-	data->map = ft_split(init_map(strfd, 0), '\n');
-	data->pos = check_pos(data->map);
-	if (!data->pos)
+	if (check_pos(init_map(strfd, data->map), data->pos, 0, 0))
 		return (write(2, "Error\nInvalid map\n", 19), free(strfd), -1);
 	return (free(strfd), 0);
 }

@@ -45,7 +45,7 @@ int		init_data(char *strfd, t_data *data);
 /*----------------------------------PARSING----------------------------------*/
 
 int		check_id(char *str, int i, char c);
-char	check_pos(char **map);
+int		check_pos(char *map, char pos, int i, int count);
 int		check_error(int ac, char **av, char *file, t_data *data);
 
 /*-----------------------------------LIBFT-----------------------------------*/

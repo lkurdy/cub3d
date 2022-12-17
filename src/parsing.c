@@ -33,32 +33,30 @@ int	check_id(char *str, int i, char c)
 	return (0);
 }
 
-char	check_pos(char **map)
+int	check_pos(char *map, char pos, int i, int count)
 {
-	int		i;
-	int		j;
-	int		count;
-	char	c;
-
-	i = 0;
-	count = 0;
+	while (map[i] && (map[i] == '\n' || map[i] == ' ' || map[i] == '\t'))
+		i++;
+	while (i > 0 && map[i - 1] && map[i - 1] != '\n')
+		i--;
 	while (map[i])
 	{
-		j = 0;
-		while (map[i][j])
+		if (map[i + 1] && map[i] == '\n' && map[i + 1] == '\n')
+			break ;
+		if ((map[i] != '0' && map[i] != '1' && map[i] != ' ' && map[i] != '\n'))
 		{
-			if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != ' ')
-			{
-				c = map[i][j];
-				count++;
-			}
-			j++;
+			pos = map[i];
+			count++;
 		}
 		i++;
 	}
-	if (count != 1 || (c != 'N' && c != 'S' && c != 'W' && c != 'E'))
-		return (0);
-	return (c);
+	if (count != 1 || (pos != 'N' && pos != 'S' && pos != 'W' && pos != 'E'))
+		return (free(map), -1);
+	while (map[i] && (map[i] == '\n' || map[i] == ' ' || map[i] == '\t'))
+		i++;
+	if (map[i])
+		return (free(map), -1);
+	return (0);
 }
 
 int	check_error(int ac, char **av, char *file, t_data *data)
