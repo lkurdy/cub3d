@@ -201,12 +201,16 @@ void	get_on_the_floor(t_data *img)
 	i = 0;
 	while (i < (img->length * img->height) / 2)
 	{
-		img->pic->buf[i] = 666;
+		img->pic->buf[i] = img->C_color[0] << 16;
+		img->pic->buf[i] += img->C_color[1] << 8;
+		img->pic->buf[i] += img->C_color[2];
 		i++;
 	}
 	while (i < img->length * img->height)
 	{
-		img->pic->buf[i] = 6618980;
+		img->pic->buf[i] = img->F_color[0] << 16;
+		img->pic->buf[i] += img->F_color[1] << 8;
+		img->pic->buf[i] += img->F_color[2];
 		i++;
 	}
 }
