@@ -18,5 +18,17 @@ int main(int ac, char **av)
 
 	if (check_error(ac, av, av[1], &data))
 		return (-1);
+	/*-----------------------------------TEST--------------------------------*/
+	printf("NO = %s\n", data.NO_path);
+	printf("SO = %s\n", data.SO_path);
+	printf("WE = %s\n", data.WE_path);
+	printf("EA = %s\n", data.EA_path);
+	printf("F = %d,%d,%d\n", data.F_color[0], data.F_color[1], data.F_color[2]);
+	printf("C = %d,%d,%d\n", data.C_color[0], data.C_color[1], data.C_color[2]);
+	int	i = 0;
+	while (data.map[i])
+		printf("%s\n", data.map[i++]);
+	printf("POS = %c\n", data.pos);
+	/*-----------------------------------TEST--------------------------------*/
 	return (0);
 }

@@ -32,14 +32,14 @@ int	check_id(char *str, int i, char c)
 		return (-1);
 	return (0);
 }
-
-int	check_map(char **map)
+/*
+int	check_exit(char **map)
 {
 	//flood_fill
-	return (0);
+	return (free(map), 0);
 }
-
-int	check_pos(char *map, char pos, int i, int count)
+*/
+int	check_map(char *map, char *pos, int i, int count)
 {
 	while (map[i] && (map[i] == '\n' || map[i] == ' ' || map[i] == '\t'))
 		i++;
@@ -51,18 +51,19 @@ int	check_pos(char *map, char pos, int i, int count)
 			break ;
 		if ((map[i] != '0' && map[i] != '1' && map[i] != ' ' && map[i] != '\n'))
 		{
-			pos = map[i];
+			*pos = map[i];
 			count++;
 		}
 		i++;
 	}
-	if (count != 1 || (pos != 'N' && pos != 'S' && pos != 'W' && pos != 'E'))
+	if (count != 1 || (*pos != 'N' && *pos != 'S' && *pos != 'W' && *pos != 'E'))
 		return (free(map), -1);
 	while (map[i] && (map[i] == '\n' || map[i] == ' ' || map[i] == '\t'))
 		i++;
 	if (map[i])
 		return (free(map), -1);
-	return (check_map(ft_split(map, '\n')));
+//	return (check_exit(ft_split(map, '\n')));
+	return (0);
 }
 
 int	check_error(int ac, char **av, char *file, t_data *data)
@@ -86,7 +87,7 @@ int	check_error(int ac, char **av, char *file, t_data *data)
 		write(2, "Error\nAn unexpected error has occurred\n", 39);
 		return (free(strfd), close(fd), -1);
 	}
-	if (init_data(strfd, data))
+	if (init_data(strfd, data, 0, 6))
 		return (close(fd), -1);
 	return (close(fd), 0);
 }

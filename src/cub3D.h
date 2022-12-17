@@ -40,13 +40,18 @@ typedef struct s_data
 /*---------------------------------INIT_DATA---------------------------------*/
 
 char	*init_strfd(int fd);
-int		init_data(char *strfd, t_data *data);
+int		init_data(char *strfd, t_data *data, char *info, int i);
 
 /*----------------------------------PARSING----------------------------------*/
 
 int		check_id(char *str, int i, char c);
-int		check_pos(char *map, char pos, int i, int count);
+int		check_map(char *map, char *pos, int i, int count);
 int		check_error(int ac, char **av, char *file, t_data *data);
+
+/*---------------------------------FT_SPLIT----------------------------------*/
+
+char	**ft_split(char *s, char c);
+char	**ft_free(char **dest, int j);
 
 /*-----------------------------------LIBFT-----------------------------------*/
 
@@ -54,11 +59,6 @@ int		ft_strlen(char *str);
 char	*ft_strdup(char *str);
 int		ft_atoi(char *str, int *i, int val);
 char	*ft_strjoin(char *s1, char *s2);
-
-/*---------------------------------FT_SPLIT----------------------------------*/
-
-char	**ft_split(char *s, char c);
-char	**ft_free(char **dest, int j);
 
 /*------------------------------------T^T------------------------------------*/
 
