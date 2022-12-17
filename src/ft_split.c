@@ -75,7 +75,7 @@ char	**ft_split(char *s, char c)
 		{
 			dest[j] = malloc(sizeof(const char) * (i - g + 1));
 			if (!dest[j])
-				return (ft_free(dest, j));
+				return (ft_free(dest), NULL);
 			dest[j] = ft_cpy(dest[j], &s[g], i - g);
 			j++;
 		}
@@ -84,7 +84,7 @@ char	**ft_split(char *s, char c)
 	}
 	return (dest[j] = 0, dest);
 }
-
+/*
 char	**ft_free(char **dest, int j)
 {
 	while (j > 0)
@@ -95,3 +95,4 @@ char	**ft_free(char **dest, int j)
 	free(dest);
 	return (NULL);
 }
+*/

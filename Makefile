@@ -7,7 +7,7 @@ DIR_SRC			=	src
 DIR_OBJ			=	obj
 MLX_OBJ			=	mlx/obj mlx/libmlx.a mlx/libmlx_Linux.a mlx/Makefile.gen
 
-SRC				=	libft.c ft_split.c parsing.c init_data.c cub3D.c
+SRC				=	libft.c ft_split.c parsing.c init_data.c cub3D.c aide.c
 
 OBJ				=	$(SRC:%.c=$(DIR_OBJ)/%.o)
 DEP				=	$(SRC:%.c=$(DIR_OBJ)/%.d)
