@@ -62,7 +62,7 @@ int	check_pos(char *map, char pos, int i, int count)
 		i++;
 	if (map[i])
 		return (free(map), -1);
-	return (0);
+	return (check_map(ft_split(map, '\n')));
 }
 
 int	check_error(int ac, char **av, char *file, t_data *data)
