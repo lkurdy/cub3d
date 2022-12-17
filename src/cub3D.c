@@ -37,7 +37,7 @@ int	ft_close(t_data *img)
 	exit (0);
 }
 
-double	find_x(char **map)
+double	find_x(char **map, t_data *img)
 {
 	int	i;
 	int	j;
@@ -46,16 +46,16 @@ double	find_x(char **map)
 	while (map[i])
 	{
 		j = 0;
-		while (map[i][j] && map[i][j] != 'S')
+		while (map[i][j] && map[i][j] != img->pos)
 			j++;
-		if (map[i][j] && map[i][j] == 'S')
+		if (map[i][j] && map[i][j] == img->pos)
 			return (j + 0.5);
 		i++;
 	}
 	return (0);
 }
 
-double	find_y(char **map)
+double	find_y(char **map, t_data *img)
 {
 	int	i;
 	int	j;
@@ -64,9 +64,9 @@ double	find_y(char **map)
 	while (map[i])
 	{
 		j = 0;
-		while (map[i][j] && map[i][j] != 'S')
+		while (map[i][j] && map[i][j] != img->pos)
 			j++;
-		if (map[i][j] && map[i][j] == 'S')
+		if (map[i][j] && map[i][j] == img->pos)
 			return (i + 0.5);
 		i++;
 	}
@@ -129,8 +129,8 @@ void	put_map(t_data *img)
 	img->map[j] = 0;
 	img->pos = 'N';
 	*/
-	img->X = find_x(img->map);
-	img->Y = find_y(img->map);
+	img->X = find_x(img->map, img);
+	img->Y = find_y(img->map, img);
 	init_stuff(img);
 	img->key = 0;
 //	close(fd);
