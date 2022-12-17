@@ -40,7 +40,7 @@ char	*init_strfd(int fd)
 	return (free(buffer), strfd);
 }
 
-int		*init_color(char *str)
+static int		*init_color(char *str)
 {
 	int	*color;
 	int	i;
@@ -65,7 +65,7 @@ int		*init_color(char *str)
 	return (free(str), color);
 }
 
-char	*init_path(char *str, int j)
+static char	*init_path(char *str, int j)
 {
 	char		*path;
 	static int	i;
@@ -94,7 +94,7 @@ char	*init_path(char *str, int j)
 	return (path);
 }
 
-char	*init_map(char *str, char ***data)
+static char	*init_map(char *str, char ***data)
 {
 	char	*map;
 	int		i;

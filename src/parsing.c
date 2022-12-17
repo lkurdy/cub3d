@@ -32,13 +32,49 @@ int	check_id(char *str, int i, char c)
 		return (-1);
 	return (0);
 }
-/*
-int	check_exit(char **map)
+
+static void	check_exit_utils(char **tab, int i, int j, int *exit)
 {
-	//flood_fill
-	return (free(map), 0);
+	if (i < 0 || j < 0 || !tab[i] || (tab[i] && !tab[i][j])
+		|| (tab[i] && tab[i][j] == ' '))
+	{
+		*exit = 1;
+		return;
+	}
+	else if (tab[i][j] != '0')
+		return;
+	tab[i][j] = 'X';
+	check_exit_utils(tab, i - 1, j, exit);
+	check_exit_utils(tab, i + 1, j, exit);
+	check_exit_utils(tab, i, j - 1, exit);
+	check_exit_utils(tab, i, j + 1, exit);
 }
-*/
+
+static int	check_exit(char **map)
+{
+	int	i;
+	int	j;
+	int	exit;
+
+	i = -1;
+	exit = 0;
+	while (map[++i])
+	{
+		j = -1;
+		while (map[i][++j])
+		{
+			if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != ' ')
+			{
+				map[i][j] = '0';
+				check_exit_utils(map, i, j, &exit);
+				if (exit == 1)
+					return (-1);
+			}
+		}
+	}
+	return (0);
+}
+
 int	check_map(char *map, char *pos, int i, int count)
 {
 	while (map[i] && (map[i] == '\n' || map[i] == ' ' || map[i] == '\t'))
@@ -62,8 +98,7 @@ int	check_map(char *map, char *pos, int i, int count)
 		i++;
 	if (map[i])
 		return (free(map), -1);
-//	return (check_exit(ft_split(map, '\n')));
-	return (0);
+	return (check_exit(ft_split(map, '\n')));
 }
 
 int	check_error(int ac, char **av, char *file, t_data *data)
