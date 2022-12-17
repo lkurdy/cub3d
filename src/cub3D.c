@@ -216,7 +216,7 @@ int	ray(void *param)
 	t_data	*img;
 
 	img = (t_data*)param;
-	img->pic = new_pic(img->mlx, img->length, img->height, 0);
+	img->pic = new_pic(img, img->length, img->height, 0);
 	get_on_the_floor(img);
 	for(int y = 0; y < img->length ; y++)
 	{

@@ -1,13 +1,13 @@
 
-				NO  ./path_to_the_north_texture		
+				NO  ./mur.xpm
 
     		  C  225,200,0        
         
-WE	 ./path_to_the_west_texture
+WE	 ./mur.xpm
 
-EA ./path_to_the_east_texture
+EA ./mur.xpm
 
-SO ./path_to_the_south_texture
+SO ./mur.xpm
 
 	F  200,100,0
 
