@@ -32,13 +32,13 @@ int	check_id(char *str, int i, char c)
 		return (-1);
 	return (0);
 }
-/*
+
 int	check_map(char **map)
 {
 	//flood_fill
 	return (0);
 }
-*/
+
 int	check_pos(char *map, char pos, int i, int count)
 {
 	while (map[i] && (map[i] == '\n' || map[i] == ' ' || map[i] == '\t'))
