@@ -32,7 +32,13 @@ int	check_id(char *str, int i, char c)
 		return (-1);
 	return (0);
 }
-
+/*
+int	check_map(char **map)
+{
+	//flood_fill
+	return (0);
+}
+*/
 int	check_pos(char *map, char pos, int i, int count)
 {
 	while (map[i] && (map[i] == '\n' || map[i] == ' ' || map[i] == '\t'))
@@ -41,7 +47,7 @@ int	check_pos(char *map, char pos, int i, int count)
 		i--;
 	while (map[i])
 	{
-		if (map[i + 1] && map[i] == '\n' && map[i + 1] == '\n')
+		if (map[i + 1] && map[i] == '\n' && (map[i + 1] == '\n' || map[i + 1] == '\t'))
 			break ;
 		if ((map[i] != '0' && map[i] != '1' && map[i] != ' ' && map[i] != '\n'))
 		{
