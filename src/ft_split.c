@@ -84,15 +84,21 @@ char	**ft_split(char *s, char c)
 	}
 	return (dest[j] = 0, dest);
 }
-/*
-char	**ft_free(char **dest, int j)
+
+void	ft_free(char **s)
 {
-	while (j > 0)
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (s[i])
+		i++;
+	while (j < i)
 	{
-		j--;
-		free(dest[j]);
+		free(s[j]);
+		j++;
 	}
-	free(dest);
-	return (NULL);
+	free(s[j]);
+	free(s);
 }
-*/

@@ -76,9 +76,8 @@ typedef struct s_data
 	int		*C_color;
 }	t_data;
 
-char	*gnl(int fd);
 t_pic	*new_pic(t_data *img, int width, int height, int x);
-int	get_color(t_data *img, float start, int line);
+int		get_color(t_data *img, float start, int line);
 void	walk_check(t_data *img, double sumY, double sumX);
 void	key(int keycode, t_data *img);
 void	ft_free(char **s);
@@ -97,6 +96,7 @@ int		check_error(int ac, char **av, t_data *data);
 /*---------------------------------FT_SPLIT----------------------------------*/
 
 char	**ft_split(char *s, char c);
+void	ft_free(char **s);
 
 /*-----------------------------------LIBFT-----------------------------------*/
 

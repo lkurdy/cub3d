@@ -1,23 +1,5 @@
 #include "cub3D.h"
 
-void	ft_free(char **s)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (s[i])
-		i++;
-	while (j < i)
-	{
-		free(s[j]);
-		j++;
-	}
-	free(s[j]);
-	free(s);
-}
-
 int	ft_close(t_data *img)
 {
 //	mlx_destroy_image(img->mlx, img->pic->img);
@@ -107,33 +89,10 @@ void	init_stuff(t_data *img)
 
 void	put_map(t_data *img)
 {
-/*	int		i;
-	int		j;
-	char	*temp;
-
-	i = 1;
-	while (i)
-	{
-		temp = gnl(fd);
-		if (!temp)
-			break ;
-		free(temp);
-		i++;
-	}
-	close(fd);
-	fd = open(path, O_RDONLY);
-	img->map = malloc(sizeof(char *) * (i + 1));
-	j = 0;
-	while (j < i)
-		img->map[j++] = gnl(fd);
-	img->map[j] = 0;
-	img->pos = 'N';
-	*/
 	img->X = find_x(img->map, img);
 	img->Y = find_y(img->map, img);
 	init_stuff(img);
 	img->key = 0;
-//	close(fd);
 }
 
 void	DDA(t_data *img)
@@ -312,17 +271,17 @@ int	release(int keycode, t_data *img)
 int	main(int argc, char **argv)
 {
 	t_data	img;
-//	int	fd;
 
 	if (check_error(argc, argv, &img))
 		return (-1);
-//	fd = open(argv[1], O_RDONLY);
 	img.height = 720;
 	img.length = 1480;
-	put_map(&img);
+	img.X = find_x(img.map, &img);
+	img.Y = find_y(img.map, &img);
+	init_stuff(&img);
+	img.key = 0;
 	img.mlx = mlx_init();
-	img.win = mlx_new_window(img.mlx,
-			img.length, img.height, "Cub3d");
+	img.win = mlx_new_window(img.mlx, img.length, img.height, "Cub3d");
 	img.north = new_pic(&img, 0, 0, 1);
 	img.east = new_pic(&img, 0, 0, 2);
 	img.west = new_pic(&img, 0, 0, 3);
@@ -332,5 +291,5 @@ int	main(int argc, char **argv)
 	mlx_hook(img.win, 17, 0, ft_close, &img);
 	mlx_loop_hook(img.mlx, &ray, &img);
 	mlx_loop(img.mlx);
-	return (argc - argc);
+	return (0);
 }
