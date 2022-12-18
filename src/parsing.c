@@ -119,8 +119,8 @@ int	check_error(int ac, char **av, char *file, t_data *data)
 	strfd = init_strfd(fd);
 	if (!strfd)
 	{
-		write(2, "Error\nAn unexpected error has occurred\n", 39);
-		return (free(strfd), close(fd), -1);
+		write(2, "Error\n", 6);
+		return (perror(av[1]), free(strfd), close(fd), -1);
 	}
 	if (init_data(strfd, data, 0, 6))
 		return (close(fd), -1);
