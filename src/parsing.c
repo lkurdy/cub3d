@@ -101,7 +101,7 @@ int	check_map(char *map, char *pos, int i, int count)
 	return (check_exit(ft_split(map, '\n')));
 }
 
-int	check_error(int ac, char **av, char *file, t_data *data)
+int	check_error(int ac, char **av, t_data *data)
 {
 	char	*strfd;
 	int		len;
@@ -109,13 +109,13 @@ int	check_error(int ac, char **av, char *file, t_data *data)
 
 	if (ac != 2 || !av)
 		return (write(2, "Error\nInvalid arguments\n", 24), -1);
-	len = ft_strlen(file);
-	if (len < 5 || file[len - 1] != 'b' || file[len - 2] != 'u'
-		|| file[len - 3] != 'c' || file[len - 4] != '.')
+	len = ft_strlen(av[1]);
+	if (len < 5 || av[1][len - 1] != 'b' || av[1][len - 2] != 'u'
+		|| av[1][len - 3] != 'c' || av[1][len - 4] != '.')
 		return (write(2, "Error\nFile is not a .cub\n", 26), -1);
-	fd = open(file, O_RDONLY);
+	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
-		return (close(fd), write(2, "Error\n", 6), perror(NULL), -1);
+		return (close(fd), write(2, "Error\n", 6), perror(av[1]), -1);
 	strfd = init_strfd(fd);
 	if (!strfd)
 	{

@@ -314,7 +314,7 @@ int	main(int argc, char **argv)
 	t_data	img;
 //	int	fd;
 
-	if (check_error(argc, argv, argv[1], &img))
+	if (check_error(argc, argv, &img))
 		return (-1);
 //	fd = open(argv[1], O_RDONLY);
 	img.height = 720;

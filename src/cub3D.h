@@ -92,7 +92,7 @@ int		init_data(char *strfd, t_data *data, char *info, int i);
 
 int		check_id(char *str, int i, char c);
 int		check_map(char *map, char *pos, int i, int count);
-int		check_error(int ac, char **av, char *file, t_data *data);
+int		check_error(int ac, char **av, t_data *data);
 
 /*---------------------------------FT_SPLIT----------------------------------*/
 
