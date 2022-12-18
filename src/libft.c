@@ -88,3 +88,25 @@ char	*ft_strjoin(char *s1, char *s2)
 	str[i] = '\0';
 	return (free(s1), str);
 }
+
+int	ft_open(t_data *data)
+{
+	int	fd;
+
+	fd = open(data->NO_path, O_RDONLY);
+	if (fd == -1)
+		return (write(2, "Error\n", 6), perror(data->NO_path), close(fd), -1);
+	close(fd);
+	fd = open(data->SO_path, O_RDONLY);
+	if (fd == -1)
+		return (write(2, "Error\n", 6), perror(data->SO_path), close(fd), -1);
+	close(fd);
+	fd = open(data->WE_path, O_RDONLY);
+	if (fd == -1)
+		return (write(2, "Error\n", 6), perror(data->WE_path), close(fd), -1);
+	close(fd);
+	fd = open(data->EA_path, O_RDONLY);
+	if (fd == -1)
+		return (write(2, "Error\n", 6), perror(data->EA_path), close(fd), -1);
+	return (close(fd), 0);
+}

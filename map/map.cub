@@ -1,13 +1,13 @@
 
-				NO  ./mur.xpm
+				NO  ./tex/mur.xpm
 
     		  C  225,200,0        
         
-WE	 ./mur.xpm
+WE	 ./tex/mur.xpm
 
-EA ./mur.xpm
+EA ./tex/mur.xpm
 
-SO ./mur.xpm
+SO ./tex/mur.xpm
 
 	F  200,100,0
 

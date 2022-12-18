@@ -124,5 +124,7 @@ int	check_error(int ac, char **av, char *file, t_data *data)
 	}
 	if (init_data(strfd, data, 0, 6))
 		return (close(fd), -1);
+	if (ft_open(data))
+		return (close(fd), -1);
 	return (close(fd), 0);
 }

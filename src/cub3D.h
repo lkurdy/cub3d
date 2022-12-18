@@ -104,6 +104,7 @@ int		ft_strlen(char *str);
 char	*ft_strdup(char *str);
 int		ft_atoi(char *str, int *i, int val);
 char	*ft_strjoin(char *s1, char *s2);
+int		ft_open(t_data *data);
 
 /*------------------------------------T^T------------------------------------*/
 
