@@ -90,6 +90,8 @@ void	ft_free(char **s)
 	int	i;
 	int	j;
 
+	if (!s)
+		return ;
 	i = 0;
 	j = 0;
 	while (s[i])

@@ -65,16 +65,15 @@ static int		*init_color(char *str)
 	return (free(str), color);
 }
 
-static char	*init_path(char *str, int j)
+static char	*init_path(char *str, char *pos, int j)
 {
 	char		*path;
 	static int	i;
-	char		c;
 
 	while (str[i] && (str[i] == '\n' || str[i] == ' ' || str[i] == '\t'))
 		i++;
-	c = str[i];
-	if (check_id(str, (i + 1), c))
+	*pos = str[i];
+	if (check_id(str, (i + 1), *pos))
 		return (0);
 	while (str[i] && str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
 		i++;
@@ -89,7 +88,6 @@ static char	*init_path(char *str, int j)
 	j = 0;
 	while (str[i] && str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
 		path[j++] = str[i++];
-	path[j++] = c;
 	path[j] = '\0';
 	return (path);
 }
@@ -116,9 +114,8 @@ static char	*init_map(char *str, char ***data)
 	j = 0;
 	while (str[i])
 		map[j++] = str[i++];
-	map[j++] = '\n';
 	map[j] = '\0';
-	*data = ft_split(ft_strdup(map), '\n');
+	*data = ft_split(map, '\n');
 	return (map);
 }
 
@@ -126,18 +123,18 @@ int	init_data(char *strfd, t_data *data, char *info, int i)
 {
 	while (i--)
 	{
-		info = init_path(strfd, 0);
-		if (info && info[ft_strlen(info) - 1] == 'N')
+		info = init_path(strfd, &data->pos, 0);
+		if (info && data->pos && data->pos == 'N')
 			data->NO_path = ft_strdup(info);
-		else if (info && info[ft_strlen(info) - 1] == 'S')
+		else if (info && data->pos && data->pos == 'S')
 			data->SO_path = ft_strdup(info);
-		else if (info && info[ft_strlen(info) - 1] == 'W')
+		else if (info && data->pos && data->pos == 'W')
 			data->WE_path = ft_strdup(info);
-		else if (info && info[ft_strlen(info) - 1] == 'E')
+		else if (info && data->pos && data->pos == 'E')
 			data->EA_path = ft_strdup(info);
-		else if (info && info[ft_strlen(info) - 1] == 'F')
+		else if (info && data->pos && data->pos == 'F')
 			data->F_color = init_color(ft_strdup(info));
-		else if (info && info[ft_strlen(info) - 1] == 'C')
+		else if (info && data->pos && data->pos == 'C')
 			data->C_color = init_color(ft_strdup(info));
 		else
 			return (write(2, "Error\nInvalid data\n", 19), free(info), free(strfd), -1);

@@ -2,19 +2,26 @@
 
 int	ft_close(t_data *img)
 {
-//	mlx_destroy_image(img->mlx, img->pic->img);
-	mlx_destroy_image(img->mlx, img->north->img);
-	mlx_destroy_image(img->mlx, img->east->img);
-	mlx_destroy_image(img->mlx, img->west->img);
-	mlx_destroy_image(img->mlx, img->south->img);
-	mlx_destroy_window(img->mlx, img->win);
-	mlx_destroy_display(img->mlx);
-	free(img->mlx);
-	free(img->north);
-	free(img->east);
-	free(img->west);
-	free(img->south);
-//	free(img->pic);
+	if (img->mlx)
+	{
+		mlx_destroy_image(img->mlx, img->north->img);
+		mlx_destroy_image(img->mlx, img->east->img);
+		mlx_destroy_image(img->mlx, img->west->img);
+		mlx_destroy_image(img->mlx, img->south->img);
+		mlx_destroy_window(img->mlx, img->win);
+		mlx_destroy_display(img->mlx);
+		free(img->mlx);
+		free(img->north);
+		free(img->east);
+		free(img->west);
+		free(img->south);
+	}
+	free(img->NO_path);
+	free(img->SO_path);
+	free(img->WE_path);
+	free(img->EA_path);
+	free(img->F_color);
+	free(img->C_color);
 	ft_free(img->map);
 	exit (0);
 }
@@ -272,8 +279,13 @@ int	main(int argc, char **argv)
 {
 	t_data	img;
 
-	if (check_error(argc, argv, &img))
-		return (-1);
+	img.mlx = 0;
+	img.NO_path = 0;
+	img.SO_path = 0;
+	img.WE_path = 0;
+	img.EA_path = 0;
+	if (check_error(argc, argv, &img, 0))
+		return (ft_close(&img), -1);
 	img.height = 720;
 	img.length = 1480;
 	img.X = find_x(img.map, &img);
@@ -289,7 +301,5 @@ int	main(int argc, char **argv)
 	mlx_hook(img.win, 2, 1L << 0, &press, &img);
 	mlx_hook(img.win, 3, 1L << 1, &release, &img);
 	mlx_hook(img.win, 17, 0, ft_close, &img);
-	mlx_loop_hook(img.mlx, &ray, &img);
-	mlx_loop(img.mlx);
-	return (0);
+	return (mlx_loop_hook(img.mlx, &ray, &img), mlx_loop(img.mlx), 0);
 }

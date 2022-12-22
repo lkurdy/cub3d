@@ -39,10 +39,10 @@ static void	check_exit_utils(char **tab, int i, int j, int *exit)
 		|| (tab[i] && tab[i][j] == ' '))
 	{
 		*exit = 1;
-		return;
+		return ;
 	}
 	else if (tab[i][j] != '0')
-		return;
+		return ;
 	tab[i][j] = 'X';
 	check_exit_utils(tab, i - 1, j, exit);
 	check_exit_utils(tab, i + 1, j, exit);
@@ -50,7 +50,7 @@ static void	check_exit_utils(char **tab, int i, int j, int *exit)
 	check_exit_utils(tab, i, j + 1, exit);
 }
 
-static int	check_exit(char **map)
+static int	check_exit(char **map, char *str)
 {
 	int	i;
 	int	j;
@@ -63,15 +63,18 @@ static int	check_exit(char **map)
 		j = -1;
 		while (map[i][++j])
 		{
-			if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != ' ')
+			if (map[i][j] != '0' && map[i][j] != '1'
+				&& map[i][j] != ' ' && map[i][j] != '\t')
 			{
 				map[i][j] = '0';
 				check_exit_utils(map, i, j, &exit);
 				if (exit == 1)
-					return (-1);
+					return (ft_free(map), free(str), -1);
 			}
 		}
 	}
+	ft_free(map);
+	free(str);
 	return (0);
 }
 
@@ -98,15 +101,17 @@ int	check_map(char *map, char *pos, int i, int count)
 		i++;
 	if (map[i])
 		return (free(map), -1);
-	return (check_exit(ft_split(map, '\n')));
+	return (check_exit(ft_split(map, '\n'), map));
 }
 
-int	check_error(int ac, char **av, t_data *data)
+int	check_error(int ac, char **av, t_data *data, int len)
 {
 	char	*strfd;
-	int		len;
 	int		fd;
 
+	data->F_color = 0;
+	data->C_color = 0;
+	data->map = 0;
 	if (ac != 2 || !av)
 		return (write(2, "Error\nInvalid arguments\n", 24), -1);
 	len = ft_strlen(av[1]);
@@ -122,9 +127,7 @@ int	check_error(int ac, char **av, t_data *data)
 		write(2, "Error\n", 6);
 		return (perror(av[1]), free(strfd), close(fd), -1);
 	}
-	if (init_data(strfd, data, 0, 6))
-		return (close(fd), -1);
-	if (ft_open(data))
+	if (init_data(strfd, data, 0, 6) || ft_open(data))
 		return (close(fd), -1);
 	return (close(fd), 0);
 }

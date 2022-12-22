@@ -30,10 +30,10 @@ char	*ft_strdup(char *str)
 	int		i;
 
 	i = 0;
-	cpy = malloc(sizeof(char) * ft_strlen(str));
+	cpy = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (!cpy)
 		return (0);
-	while (str[i] && str[i + 1])
+	while (str[i])
 	{
 		cpy[i] = str[i];
 		i++;
@@ -51,7 +51,7 @@ int	ft_atoi(char *str, int *i, int val)
 	nb = 0;
 	res = 0;
 	count = 0;
-	if (!str[*i])
+	if (!str[*i] || str[*i] < '0' || str[*i] > '9')
 		return (-1);
 	while (str[*i] && str[*i] >= '0' && str[*i] <= '9')
 	{
