@@ -104,30 +104,25 @@ int	check_map(char *map, char *pos, int i, int count)
 	return (check_exit(ft_split(map, '\n'), map));
 }
 
-int	check_error(int ac, char **av, t_data *data, int len)
+int	check_path(t_data *data)
 {
-	char	*strfd;
-	int		fd;
+	int	fd;
+	char c;
 
-	data->F_color = 0;
-	data->C_color = 0;
-	data->map = 0;
-	if (ac != 2 || !av)
-		return (write(2, "Error\nInvalid arguments\n", 24), -1);
-	len = ft_strlen(av[1]);
-	if (len < 5 || av[1][len - 1] != 'b' || av[1][len - 2] != 'u'
-		|| av[1][len - 3] != 'c' || av[1][len - 4] != '.')
-		return (write(2, "Error\nFile is not a .cub\n", 26), -1);
-	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
-		return (close(fd), write(2, "Error\n", 6), perror(av[1]), -1);
-	strfd = init_strfd(fd);
-	if (!strfd)
-	{
-		write(2, "Error\n", 6);
-		return (perror(av[1]), free(strfd), close(fd), -1);
-	}
-	if (init_data(strfd, data, 0, 6) || ft_open(data))
-		return (close(fd), -1);
+	fd = open(data->NO_path, O_RDONLY, O_DIRECTORY);
+	if (fd == -1 || read(fd, &c, 1) == -1)
+		return (write(2, "Error\n", 6), perror(data->NO_path), close(fd), -1);
+	close(fd);
+	fd = open(data->SO_path, O_RDONLY, O_DIRECTORY);
+	if (fd == -1 || read(fd, &c, 1) == -1)
+		return (write(2, "Error\n", 6), perror(data->SO_path), close(fd), -1);
+	close(fd);
+	fd = open(data->WE_path, O_RDONLY, O_DIRECTORY);
+	if (fd == -1 || read(fd, &c, 1) == -1)
+		return (write(2, "Error\n", 6), perror(data->WE_path), close(fd), -1);
+	close(fd);
+	fd = open(data->EA_path, O_RDONLY, O_DIRECTORY);
+	if (fd == -1 || read(fd, &c, 1) == -1)
+		return (write(2, "Error\n", 6), perror(data->EA_path), close(fd), -1);
 	return (close(fd), 0);
 }

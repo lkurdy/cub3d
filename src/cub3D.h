@@ -23,6 +23,8 @@
 # include <math.h>
 # include "../mlx/mlx.h"
 
+/*-----------------------------------S_PIC-----------------------------------*/
+
 typedef struct	s_pic
 {
 	int	width;
@@ -76,12 +78,6 @@ typedef struct s_data
 	int		*C_color;
 }	t_data;
 
-t_pic	*new_pic(t_data *img, int width, int height, int x);
-int		get_color(t_data *img, float start, int line);
-void	walk_check(t_data *img, double sumY, double sumX);
-void	key(int keycode, t_data *img);
-void	ft_free(char **s);
-
 /*---------------------------------INIT_DATA---------------------------------*/
 
 char	*init_strfd(int fd);
@@ -91,7 +87,7 @@ int		init_data(char *strfd, t_data *data, char *info, int i);
 
 int		check_id(char *str, int i, char c);
 int		check_map(char *map, char *pos, int i, int count);
-int		check_error(int ac, char **av, t_data *data, int len);
+int		check_path(t_data *data);
 
 /*---------------------------------FT_SPLIT----------------------------------*/
 
@@ -104,7 +100,25 @@ int		ft_strlen(char *str);
 char	*ft_strdup(char *str);
 int		ft_atoi(char *str, int *i, int val);
 char	*ft_strjoin(char *s1, char *s2);
-int		ft_open(t_data *data);
+int		ft_close(t_data *img);
+
+/*-----------------------------------UTILS-----------------------------------*/
+
+double	find_y(char **map, t_data *img);
+void	put_map(t_data *img);
+void	DDA(t_data *img);
+int		ray(void *param);
+void	get_on_the_floor(t_data *img);
+void	draw(t_data *img, int x);
+void	init_stuff(t_data *img);
+int		release(int keycode, t_data *img);
+int		press(int keycode, t_data *img);
+double	find_x(char **map, t_data *img);
+t_pic	*new_pic(t_data *img, int width, int height, int x);
+int		get_color(t_data *img, float start, int line);
+void	walk_check(t_data *img, double sumY, double sumX);
+void	key(int keycode, t_data *img);
+void	ft_free(char **s);
 
 /*------------------------------------T^T------------------------------------*/
 

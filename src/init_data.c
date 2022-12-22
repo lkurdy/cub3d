@@ -54,11 +54,9 @@ static int		*init_color(char *str)
 	color[0] = ft_atoi(str, &i, 1);
 	if (color[0] == -1)
 		return (free(str), free(color), NULL);
-	i += 1;
 	color[1] = ft_atoi(str, &i, 1);
 	if (color[1] == -1)
 		return (free(str), free(color), NULL);
-	i += 1;
 	color[2] = ft_atoi(str, &i, 0);
 	if (color[2] == -1)
 		return (free(str), free(color), NULL);

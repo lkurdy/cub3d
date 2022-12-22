@@ -51,7 +51,7 @@ int	ft_atoi(char *str, int *i, int val)
 	nb = 0;
 	res = 0;
 	count = 0;
-	if (!str[*i] || str[*i] < '0' || str[*i] > '9')
+	if (!str[*i] || !(str[*i] >= '0' && str[*i] <= '9'))
 		return (-1);
 	while (str[*i] && str[*i] >= '0' && str[*i] <= '9')
 	{
@@ -63,6 +63,8 @@ int	ft_atoi(char *str, int *i, int val)
 	if (nb != res || count > 9 || (str[*i] && val == 0)
 		|| (str[*i] && str[*i] != ',' && val == 1))
 		return (-1);
+	if (str[*i] && str[*i + 1])
+		*i += 1;
 	return (nb);
 }
 
@@ -89,25 +91,28 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (free(s1), str);
 }
 
-int	ft_open(t_data *data)
+int	ft_close(t_data *img)
 {
-	int	fd;
-	char c;
-
-	fd = open(data->NO_path, O_RDONLY, O_DIRECTORY);
-	if (fd == -1 || read(fd, &c, 1) == -1)
-		return (write(2, "Error\n", 6), perror(data->NO_path), close(fd), -1);
-	close(fd);
-	fd = open(data->SO_path, O_RDONLY, O_DIRECTORY);
-	if (fd == -1 || read(fd, &c, 1) == -1)
-		return (write(2, "Error\n", 6), perror(data->SO_path), close(fd), -1);
-	close(fd);
-	fd = open(data->WE_path, O_RDONLY, O_DIRECTORY);
-	if (fd == -1 || read(fd, &c, 1) == -1)
-		return (write(2, "Error\n", 6), perror(data->WE_path), close(fd), -1);
-	close(fd);
-	fd = open(data->EA_path, O_RDONLY, O_DIRECTORY);
-	if (fd == -1 || read(fd, &c, 1) == -1)
-		return (write(2, "Error\n", 6), perror(data->EA_path), close(fd), -1);
-	return (close(fd), 0);
+	if (img->mlx)
+	{
+		mlx_destroy_image(img->mlx, img->north->img);
+		mlx_destroy_image(img->mlx, img->east->img);
+		mlx_destroy_image(img->mlx, img->west->img);
+		mlx_destroy_image(img->mlx, img->south->img);
+		mlx_destroy_window(img->mlx, img->win);
+		mlx_destroy_display(img->mlx);
+		free(img->mlx);
+		free(img->north);
+		free(img->east);
+		free(img->west);
+		free(img->south);
+	}
+	free(img->NO_path);
+	free(img->SO_path);
+	free(img->WE_path);
+	free(img->EA_path);
+	free(img->F_color);
+	free(img->C_color);
+	ft_free(img->map);
+	exit (0);
 }
