@@ -35,7 +35,7 @@ int	check_id(char *str, int i, char c)
 
 static void	check_exit_utils(char **tab, int i, int j, int *exit)
 {
-	if (i < 0 || j < 0 || !tab[i] || (tab[i] && !tab[i][j])
+	if (i < 0 || j < 0 || !tab[i] || (j >= ft_strlen(tab[i]))
 		|| (tab[i] && tab[i][j] == ' '))
 	{
 		*exit = 1;
