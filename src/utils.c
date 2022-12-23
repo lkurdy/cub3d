@@ -12,6 +12,11 @@
 
 #include "cub3D.h"
 
+/*
+		T'A INTERET A ME RANGER TOUT CA SINON ON VA SE BATTRE TOI ET MOI
+		<3 <3 <3
+*/
+
 double	find_x(char **map, t_data *img)
 {
 	int	i;
