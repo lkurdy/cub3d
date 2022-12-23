@@ -24,23 +24,6 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_strdup(char *str)
-{
-	char	*cpy;
-	int		i;
-
-	i = 0;
-	cpy = malloc(sizeof(char) * (ft_strlen(str) + 1));
-	if (!cpy)
-		return (0);
-	while (str[i])
-	{
-		cpy[i] = str[i];
-		i++;
-	}
-	cpy[i] = '\0';
-	return (cpy);
-}
 
 int	ft_atoi(char *str, int *i, int val)
 {
@@ -66,6 +49,24 @@ int	ft_atoi(char *str, int *i, int val)
 	if (str[*i] && str[*i + 1])
 		*i += 1;
 	return (nb);
+}
+
+char	*ft_strdup(char *str)
+{
+	char	*cpy;
+	int		i;
+
+	i = 0;
+	cpy = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!cpy)
+		return (0);
+	while (str[i])
+	{
+		cpy[i] = str[i];
+		i++;
+	}
+	cpy[i] = '\0';
+	return (cpy);
 }
 
 char	*ft_strjoin(char *s1, char *s2)

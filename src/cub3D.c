@@ -58,7 +58,7 @@ int	main(int argc, char **argv)
 	init_stuff(&img);
 	img.key = 0;
 	img.mlx = mlx_init();
-	img.win = mlx_new_window(img.mlx, img.length, img.height, "Cub3d");
+	img.win = mlx_new_window(img.mlx, img.length, img.height, "cub3D");
 	img.north = new_pic(&img, 0, 0, 1);
 	img.east = new_pic(&img, 0, 0, 2);
 	img.west = new_pic(&img, 0, 0, 3);
