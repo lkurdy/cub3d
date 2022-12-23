@@ -24,7 +24,6 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-
 int	ft_atoi(char *str, int *i, int val)
 {
 	long	nb;
