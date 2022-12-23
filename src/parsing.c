@@ -109,19 +109,19 @@ int	check_path(t_data *data)
 	int	fd;
 	char c;
 
-	fd = open(data->NO_path, O_RDONLY, O_DIRECTORY);
+	fd = open(data->NO_path, O_RDONLY);
 	if (fd == -1 || read(fd, &c, 1) == -1)
 		return (write(2, "Error\n", 6), perror(data->NO_path), close(fd), -1);
 	close(fd);
-	fd = open(data->SO_path, O_RDONLY, O_DIRECTORY);
+	fd = open(data->SO_path, O_RDONLY);
 	if (fd == -1 || read(fd, &c, 1) == -1)
 		return (write(2, "Error\n", 6), perror(data->SO_path), close(fd), -1);
 	close(fd);
-	fd = open(data->WE_path, O_RDONLY, O_DIRECTORY);
+	fd = open(data->WE_path, O_RDONLY);
 	if (fd == -1 || read(fd, &c, 1) == -1)
 		return (write(2, "Error\n", 6), perror(data->WE_path), close(fd), -1);
 	close(fd);
-	fd = open(data->EA_path, O_RDONLY, O_DIRECTORY);
+	fd = open(data->EA_path, O_RDONLY);
 	if (fd == -1 || read(fd, &c, 1) == -1)
 		return (write(2, "Error\n", 6), perror(data->EA_path), close(fd), -1);
 	return (close(fd), 0);
