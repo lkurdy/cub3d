@@ -86,16 +86,19 @@ int	check_map(char *map, char *pos, int i, int count)
 		i--;
 	while (map[i])
 	{
-		if (map[i + 1] && map[i] == '\n' && (map[i + 1] == '\n' || map[i + 1] == '\t'))
+		if (map[i + 1] && map[i] == '\n' && (map[i + 1] == '\n'
+			|| map[i + 1] == '\t'))
 			break ;
-		if ((map[i] != '0' && map[i] != '1' && map[i] != ' ' && map[i] != '\n'))
+		if ((map[i] != '0' && map[i] != '1' && map[i] != ' '
+			&& map[i] != '\n'))
 		{
 			*pos = map[i];
 			count++;
 		}
 		i++;
 	}
-	if (count != 1 || (*pos != 'N' && *pos != 'S' && *pos != 'W' && *pos != 'E'))
+	if (count != 1 || (*pos != 'N' && *pos != 'S'
+		&& *pos != 'W' && *pos != 'E'))
 		return (free(map), -1);
 	while (map[i] && (map[i] == '\n' || map[i] == ' ' || map[i] == '\t'))
 		i++;
@@ -104,25 +107,30 @@ int	check_map(char *map, char *pos, int i, int count)
 	return (check_exit(ft_split(map, '\n'), map));
 }
 
-int	check_path(t_data *data)
+int	check_path(t_data *data, int fd, char c)
 {
-	int	fd;
-	char c;
-
 	fd = open(data->NO_path, O_RDONLY);
-	if (fd == -1 || read(fd, &c, 1) == -1)
+	if (fd == -1)
+		return (write(2, "Error\n", 6), perror(data->NO_path), -1);
+	else if (read(fd, &c, 1) == -1)
 		return (write(2, "Error\n", 6), perror(data->NO_path), close(fd), -1);
 	close(fd);
 	fd = open(data->SO_path, O_RDONLY);
-	if (fd == -1 || read(fd, &c, 1) == -1)
+	if (fd == -1)
+		return (write(2, "Error\n", 6), perror(data->SO_path), -1);
+	else if (read(fd, &c, 1) == -1)
 		return (write(2, "Error\n", 6), perror(data->SO_path), close(fd), -1);
 	close(fd);
 	fd = open(data->WE_path, O_RDONLY);
-	if (fd == -1 || read(fd, &c, 1) == -1)
+	if (fd == -1)
+		return (write(2, "Error\n", 6), perror(data->WE_path), -1);
+	else if (read(fd, &c, 1) == -1)
 		return (write(2, "Error\n", 6), perror(data->WE_path), close(fd), -1);
 	close(fd);
 	fd = open(data->EA_path, O_RDONLY);
-	if (fd == -1 || read(fd, &c, 1) == -1)
+	if (fd == -1)
+		return (write(2, "Error\n", 6), perror(data->EA_path), -1);
+	else if (read(fd, &c, 1) == -1)
 		return (write(2, "Error\n", 6), perror(data->EA_path), close(fd), -1);
 	return (close(fd), 0);
 }

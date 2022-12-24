@@ -135,13 +135,13 @@ int	init_data(char *strfd, t_data *data, char *info, int i)
 		else if (info && data->pos && data->pos == 'C')
 			data->C_color = init_color(ft_strdup(info));
 		else
-			return (write(2, "Error\nInvalid data\n", 19), free(info), free(strfd), -1);
+			return (write(2, "Error\nInvalid data\n", 19), free(info), -1);
 		free(info);
 	}
 	if (!data->NO_path || !data->SO_path || !data->WE_path || !data->EA_path
 		|| !data->F_color || !data->C_color)
-		return (write(2, "Error\nInvalid data\n", 19), free(strfd), -1);
+		return (write(2, "Error\nInvalid data\n", 19), -1);
 	if (check_map(init_map(strfd, &data->map), &data->pos, 0, 0))
-		return (write(2, "Error\nInvalid map\n", 19), free(strfd), -1);
-	return (free(strfd), 0);
+		return (write(2, "Error\nInvalid map\n", 19), -1);
+	return (0);
 }

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -25,14 +25,14 @@
 
 /*-----------------------------------S_PIC-----------------------------------*/
 
-typedef struct	s_pic
+typedef struct s_pic
 {
-	int	width;
-	int	height;
+	int		width;
+	int		height;
 	void	*mlx;
 	void	*win;
 	void	*img;
-	int	*buf;
+	int		*buf;
 }	t_pic;
 
 /*-----------------------------------S_DATA----------------------------------*/
@@ -42,24 +42,24 @@ typedef struct s_data
 	t_pic	*pic;
 	void	*mlx;
 	void	*win;
-	double		X;
-	double		Y;
-	double		dirX;
-	double		dirY;
-	double		planX;
-	double		planY;
+	double	X;
+	double	Y;
+	double	dirX;
+	double	dirY;
+	double	planX;
+	double	planY;
 	int		mapX;
 	int		mapY;
 	int		stepX;
 	int		stepY;
-	double		cameraX;
-	double		rayX;
-	double		rayY;
-	double		deltaX;
-	double		deltaY;
-	double		sideX;
-	double		sideY;
-	double		wall;
+	double	cameraX;
+	double	rayX;
+	double	rayY;
+	double	deltaX;
+	double	deltaY;
+	double	sideX;
+	double	sideY;
+	double	wall;
 	int		side;
 	char	**map;
 	int		length;
@@ -68,7 +68,7 @@ typedef struct s_data
 	t_pic	*east;
 	t_pic	*west;
 	t_pic	*south;
-	int	key;
+	int		key;
 	char	pos;
 	char	*NO_path;
 	char	*SO_path;
@@ -87,12 +87,29 @@ int		init_data(char *strfd, t_data *data, char *info, int i);
 
 int		check_id(char *str, int i, char c);
 int		check_map(char *map, char *pos, int i, int count);
-int		check_path(t_data *data);
+int		check_path(t_data *data, int fd, char c);
 
 /*---------------------------------FT_SPLIT----------------------------------*/
 
 char	**ft_split(char *s, char c);
 void	ft_free(char **s);
+
+/*-----------------------------------MATH------------------------------------*/
+
+double	find_x(char **map, t_data *img);
+double	find_y(char **map, t_data *img);
+void	key(int keycode, t_data *img, double temp);
+
+/*----------------------------------DISPLAY----------------------------------*/
+
+t_pic	*new_pic(t_data *img, int width, int height, int x);
+int		ray(void *param);
+
+/*-----------------------------------UTILS-----------------------------------*/
+
+void	get_pos(t_data *img);
+void	get_on_the_floor(t_data *img);
+int		get_color(t_data *img, float start, int line, t_pic	*texture);
 
 /*-----------------------------------LIBFT-----------------------------------*/
 
@@ -101,24 +118,6 @@ char	*ft_strdup(char *str);
 int		ft_atoi(char *str, int *i, int val);
 char	*ft_strjoin(char *s1, char *s2);
 int		ft_close(t_data *img);
-
-/*-----------------------------------UTILS-----------------------------------*/
-
-double	find_y(char **map, t_data *img);
-void	put_map(t_data *img);
-void	DDA(t_data *img);
-int		ray(void *param);
-void	get_on_the_floor(t_data *img);
-void	draw(t_data *img, int x);
-void	init_stuff(t_data *img);
-int		release(int keycode, t_data *img);
-int		press(int keycode, t_data *img);
-double	find_x(char **map, t_data *img);
-t_pic	*new_pic(t_data *img, int width, int height, int x);
-int		get_color(t_data *img, float start, int line);
-void	walk_check(t_data *img, double sumY, double sumX);
-void	key(int keycode, t_data *img);
-void	ft_free(char **s);
 
 /*------------------------------------T^T------------------------------------*/
 
