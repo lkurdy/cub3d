@@ -65,35 +65,6 @@ static int	DDA(t_data *img)
 	return (0);
 }
 
-t_pic	*new_pic(t_data *img, int width, int height, int x)
-{
-	t_pic	*new;
-	int		bpp;
-	int		endian;
-
-	bpp = 32;
-	endian = 1;
-	new = malloc(sizeof(t_pic));
-	new->width = width;
-	new->height = height;
-	if (x == 1)
-		new->img = mlx_xpm_file_to_image(img->mlx, img->NO_path, \
-		&new->width, &new->height);
-	else if (x == 2)
-		new->img = mlx_xpm_file_to_image(img->mlx, img->EA_path, \
-		&new->width, &new->height);
-	else if (x == 3)
-		new->img = mlx_xpm_file_to_image(img->mlx, img->WE_path, \
-		&new->width, &new->height);
-	else if (x == 4)
-		new->img = mlx_xpm_file_to_image(img->mlx, img->SO_path, \
-		&new->width, &new->height);
-	else
-		new->img = mlx_new_image(img->mlx, width, height);
-	new->buf = (int*)mlx_get_data_addr(new->img, &bpp, &x, &endian);
-	return (new);
-}
-
 static void	ray_utils(t_data *img)
 {
 	img->stepX = 1;
@@ -121,6 +92,35 @@ static void	ray_utils(t_data *img)
 			img->wall = (img->mapY - img->Y + \
 			(1 - img->stepY) / 2) / img->rayY;
 	}
+}
+
+t_pic	*new_pic(t_data *img, int width, int height, int x)
+{
+	t_pic	*new;
+	int		bpp;
+	int		endian;
+
+	bpp = 32;
+	endian = 1;
+	new = malloc(sizeof(t_pic));
+	new->width = width;
+	new->height = height;
+	if (x == 1)
+		new->img = mlx_xpm_file_to_image(img->mlx, img->NO_path, \
+		&new->width, &new->height);
+	else if (x == 2)
+		new->img = mlx_xpm_file_to_image(img->mlx, img->EA_path, \
+		&new->width, &new->height);
+	else if (x == 3)
+		new->img = mlx_xpm_file_to_image(img->mlx, img->WE_path, \
+		&new->width, &new->height);
+	else if (x == 4)
+		new->img = mlx_xpm_file_to_image(img->mlx, img->SO_path, \
+		&new->width, &new->height);
+	else
+		new->img = mlx_new_image(img->mlx, width, height);
+	new->buf = (int*)mlx_get_data_addr(new->img, &bpp, &x, &endian);
+	return (new);
 }
 
 int	ray(void *param)

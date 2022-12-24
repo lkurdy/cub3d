@@ -37,19 +37,6 @@ static int	parsing(int ac, char **av, t_data *data, int len)
 	return (close(fd), free(strfd), 0);
 }
 
-static int	press(int keycode, t_data *img)
-{
-	img->key = 0;
-	img->key = keycode;
-	return (0);
-}
-
-static int	release(int keycode, t_data *img)
-{
-	img->key = 0;
-	return (keycode - keycode);
-}
-
 static void	display(t_data *img)
 {
 	img->height = 720;

@@ -107,6 +107,8 @@ int		ray(void *param);
 
 /*-----------------------------------UTILS-----------------------------------*/
 
+int		press(int keycode, t_data *img);
+int		release(int keycode, t_data *img);
 void	get_pos(t_data *img);
 void	get_on_the_floor(t_data *img);
 int		get_color(t_data *img, float start, int line, t_pic	*texture);

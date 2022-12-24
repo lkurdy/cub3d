@@ -12,6 +12,19 @@
 
 #include "cub3D.h"
 
+int	press(int keycode, t_data *img)
+{
+	img->key = 0;
+	img->key = keycode;
+	return (0);
+}
+
+int	release(int keycode, t_data *img)
+{
+	img->key = 0;
+	return (keycode - keycode);
+}
+
 void	get_pos(t_data *img)
 {
 	img->dirX = 0;
