@@ -21,8 +21,9 @@ int	press(int keycode, t_data *img)
 
 int	release(int keycode, t_data *img)
 {
+	(void)keycode;
 	img->key = 0;
-	return (keycode - keycode);
+	return (0);
 }
 
 void	get_pos(t_data *img)

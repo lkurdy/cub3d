@@ -98,12 +98,12 @@ void	ft_free(char **s);
 
 double	find_x(char **map, t_data *img);
 double	find_y(char **map, t_data *img);
+int		DDA(t_data *img);
 void	key(int keycode, t_data *img, double temp);
 
 /*----------------------------------DISPLAY----------------------------------*/
 
-t_pic	*new_pic(t_data *img, int width, int height, int x);
-int		ray(void *param);
+void	display(t_data *img);
 
 /*-----------------------------------UTILS-----------------------------------*/
 

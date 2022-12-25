@@ -37,34 +37,6 @@ static void	draw(t_data *img, int x)
 	}
 }
 
-static int	DDA(t_data *img)
-{
-	while (1)
-	{
-		if (img->sideX < img->sideY)
-		{
-			img->sideX += img->deltaX;
-			img->mapX += img->stepX;
-			img->side = 0;
-		}
-		else
-		{
-			img->sideY  += img->deltaY;
-			img->mapY += img->stepY;
-			img->side = 1;
-		}
-		if (img->mapY < 0)
-			img->mapY = 0;
-		if (img->mapX < 0)
-			img->mapX = 0;
-		if (!img->map[img->mapY] || !img->map[img->mapY][img->mapX])
-			return (img->wall = -1, 0);
-		if (img->map[img->mapY][img->mapX] == '1')
-			return (1);
-	}
-	return (0);
-}
-
 static void	ray_utils(t_data *img)
 {
 	img->stepX = 1;
@@ -94,7 +66,7 @@ static void	ray_utils(t_data *img)
 	}
 }
 
-t_pic	*new_pic(t_data *img, int width, int height, int x)
+static t_pic	*new_pic(t_data *img, int width, int height, int x)
 {
 	t_pic	*new;
 	int		bpp;
@@ -123,7 +95,7 @@ t_pic	*new_pic(t_data *img, int width, int height, int x)
 	return (new);
 }
 
-int	ray(void *param)
+static int	ray(void *param)
 {
 	t_data	*img;
 	int		y;
@@ -150,4 +122,25 @@ int	ray(void *param)
 	else if (img->key && img->key != 65307)
 		key(img->key, img, img->dirX);
 	return (0);
+}
+
+void	display(t_data *img)
+{
+	img->height = 720;
+	img->length = 1480;
+	img->X = find_x(img->map, img);
+	img->Y = find_y(img->map, img);
+	get_pos(img);
+	img->key = 0;
+	img->mlx = mlx_init();
+	img->win = mlx_new_window(img->mlx, img->length, img->height, "cub3D");
+	img->north = new_pic(img, 0, 0, 1);
+	img->east = new_pic(img, 0, 0, 2);
+	img->west = new_pic(img, 0, 0, 3);
+	img->south = new_pic(img, 0, 0, 4);
+	mlx_hook(img->win, 2, 1L << 0, &press, img);
+	mlx_hook(img->win, 3, 1L << 1, &release, img);
+	mlx_hook(img->win, 17, 0, ft_close, img);
+	mlx_loop_hook(img->mlx, &ray, img);
+	mlx_loop(img->mlx);
 }

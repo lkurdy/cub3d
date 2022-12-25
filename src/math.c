@@ -48,6 +48,34 @@ double	find_y(char **map, t_data *img)
 	return (0);
 }
 
+int	DDA(t_data *img)
+{
+	while (1)
+	{
+		if (img->sideX < img->sideY)
+		{
+			img->sideX += img->deltaX;
+			img->mapX += img->stepX;
+			img->side = 0;
+		}
+		else
+		{
+			img->sideY  += img->deltaY;
+			img->mapY += img->stepY;
+			img->side = 1;
+		}
+		if (img->mapY < 0)
+			img->mapY = 0;
+		if (img->mapX < 0)
+			img->mapX = 0;
+		if (!img->map[img->mapY] || !img->map[img->mapY][img->mapX])
+			return (img->wall = -1, 0);
+		if (img->map[img->mapY][img->mapX] == '1')
+			return (1);
+	}
+	return (0);
+}
+
 static void	walk_check(t_data *img, double sumY, double sumX)
 {
 	if ((int)sumY >= 0 && img->map[(int)sumY])
