@@ -26,23 +26,20 @@ int	ft_strlen(char *str)
 
 int	ft_atoi(char *str, int *i, int val)
 {
-	long	nb;
-	int		res;
+	int		nb;
 	int		count;
 
 	nb = 0;
-	res = 0;
 	count = 0;
 	if (!str[*i] || !(str[*i] >= '0' && str[*i] <= '9'))
 		return (-1);
 	while (str[*i] && str[*i] >= '0' && str[*i] <= '9')
 	{
-		res = res * 10 + (str[*i] - '0');
 		nb = nb * 10 + (str[*i] - '0');
 		*i += 1;
-		count++;
+        count++;
 	}
-	if (nb != res || count > 9 || (str[*i] && val == 0)
+	if (nb > 255 || count > 3 || (str[*i] && val == 0)
 		|| (str[*i] && str[*i] != ',' && val == 1))
 		return (-1);
 	if (str[*i] && str[*i + 1])
