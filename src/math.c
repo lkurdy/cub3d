@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 11:30:27 by rben-tkh          #+#    #+#             */
-/*   Updated: 2022/12/24 11:30:28 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2022/12/26 20:56:52 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,70 +48,68 @@ double	find_y(char **map, t_data *img)
 	return (0);
 }
 
-int	DDA(t_data *img)
+int	dda(t_data *img)
 {
 	while (1)
 	{
-		if (img->sideX < img->sideY)
+		if (img->side_x < img->side_y)
 		{
-			img->sideX += img->deltaX;
-			img->mapX += img->stepX;
+			img->side_x += img->delta_x;
+			img->map_x += img->step_x;
 			img->side = 0;
 		}
 		else
 		{
-			img->sideY  += img->deltaY;
-			img->mapY += img->stepY;
+			img->side_y += img->delta_y;
+			img->map_y += img->step_y;
 			img->side = 1;
 		}
-		if (img->mapY < 0)
-			img->mapY = 0;
-		if (img->mapX < 0)
-			img->mapX = 0;
-		if (!img->map[img->mapY] || !img->map[img->mapY][img->mapX])
+		if (img->map_y < 0)
+			img->map_y = 0;
+		if (img->map_x < 0)
+			img->map_x = 0;
+		if (!img->map[img->map_y] || !img->map[img->map_y][img->map_x])
 			return (img->wall = -1, 0);
-		if (img->map[img->mapY][img->mapX] == '1')
+		if (img->map[img->map_y][img->map_x] == '1')
 			return (1);
 	}
 	return (0);
 }
 
-static void	walk_check(t_data *img, double sumY, double sumX)
+static void	walk_check(t_data *img, double sumy, double sumX)
 {
-	if ((int)sumY >= 0 && img->map[(int)sumY])
+	if ((int)sumy >= 0 && img->map[(int)sumy])
 	{
-		img->Y = sumY;
-		if ((int)sumX >= 0 && img->map[(int)sumY][(int)sumX])
-		{
-			img->X = sumX;
-		}
+		img->y = sumy;
+		if ((int)sumX >= 0 && img->map[(int)sumy][(int)sumX])
+			img->x = sumX;
 	}
 }
 
 void	key(int keycode, t_data *img, double temp)
 {
 	if (keycode == 'W' || keycode == 'w')
-		walk_check(img, img->Y + img->dirY * 0.05 , img->X + img->dirX * 0.05);
+		walk_check(img, img->y + img->dir_y * 0.05, img->x + img->dir_x * 0.05);
 	else if (keycode == 'S' || keycode == 's')
-		walk_check(img, img->Y - img->dirY * 0.05, img->X - img->dirX * 0.05);
+		walk_check(img, img->y - img->dir_y * 0.05, img->x - img->dir_x * 0.05);
 	else if (keycode == 'A' || keycode == 'a')
-		walk_check(img, img->Y - img->planY * 0.05, img->X - img->planX * 0.05);
+		walk_check(img, img->y - img->plany * 0.05, img->x - img->planx * 0.05);
 	else if (keycode == 'D' || keycode == 'd')
-		walk_check(img, img->Y + img->planY * 0.05, img->X + img->planX * 0.05);
+		walk_check(img, img->y + img->plany * 0.05, img->x + img->planx * 0.05);
 	if (keycode == 65361 || keycode == 'o')
 	{
-		img->dirX = img->dirX * cos(-0.02) - img->dirY * sin(-0.02);
-		img->dirY = temp * sin(-0.02) + img->dirY * cos(-0.02);
-		temp = img->planX;
-		img->planX = img->planX * cos(-0.02) - img->planY * sin(-0.02);
-		img->planY = temp * sin(-0.02) + img->planY * cos(-0.02);
+		img->dir_x = img->dir_x * cos(-0.02) - img->dir_y * sin(-0.02);
+		img->dir_y = temp * sin(-0.02) + img->dir_y * cos(-0.02);
+		temp = img->planx;
+		img->planx = img->planx * cos(-0.02) - img->plany * sin(-0.02);
+		img->plany = temp * sin(-0.02) + img->plany * cos(-0.02);
 	}
 	else if (keycode == 65363 || keycode == 'p')
 	{
-		img->dirX = img->dirX * cos(0.02) - img->dirY * sin(0.02);
-		img->dirY = temp * sin(0.02) + img->dirY * cos(0.02);
-		temp = img->planX;
-		img->planX = img->planX * cos(0.02) - img->planY * sin(0.02);
-		img->planY = temp * sin(0.02) + img->planY * cos(0.02);
+		img->dir_x = img->dir_x * cos(0.02) - img->dir_y * sin(0.02);
+		img->dir_y = temp * sin(0.02) + img->dir_y * cos(0.02);
+		temp = img->planx;
+		img->planx = img->planx * cos(0.02) - img->plany * sin(0.02);
+		img->plany = temp * sin(0.02) + img->plany * cos(0.02);
 	}
 }

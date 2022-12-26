@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 06:57:31 by rben-tkh          #+#    #+#             */
-/*   Updated: 2022/12/12 06:57:33 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2022/12/26 20:56:36 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,23 @@ typedef struct s_data
 	t_pic	*pic;
 	void	*mlx;
 	void	*win;
-	double	X;
-	double	Y;
-	double	dirX;
-	double	dirY;
-	double	planX;
-	double	planY;
-	int		mapX;
-	int		mapY;
-	int		stepX;
-	int		stepY;
-	double	cameraX;
-	double	rayX;
-	double	rayY;
-	double	deltaX;
-	double	deltaY;
-	double	sideX;
-	double	sideY;
+	double	x;
+	double	y;
+	double	dir_x;
+	double	dir_y;
+	double	planx;
+	double	plany;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	double	camera_x;
+	double	ray_x;
+	double	ray_y;
+	double	delta_x;
+	double	delta_y;
+	double	side_x;
+	double	side_y;
 	double	wall;
 	int		side;
 	char	**map;
@@ -70,12 +70,12 @@ typedef struct s_data
 	t_pic	*south;
 	int		key;
 	char	pos;
-	char	*NO_path;
-	char	*SO_path;
-	char	*WE_path;
-	char	*EA_path;
-	int		*F_color;
-	int		*C_color;
+	char	*no_path;
+	char	*so_path;
+	char	*we_path;
+	char	*ea_path;
+	int		*f_color;
+	int		*c_color;
 }	t_data;
 
 /*---------------------------------INIT_DATA---------------------------------*/
@@ -98,10 +98,10 @@ void	ft_free(char **s);
 
 double	find_x(char **map, t_data *img);
 double	find_y(char **map, t_data *img);
-int		DDA(t_data *img);
+int		dda(t_data *img);
 void	key(int keycode, t_data *img, double temp);
 
-/*----------------------------------DISPLAY----------------------------------*/
+/*----------------------------------DISPLAy----------------------------------*/
 
 void	display(t_data *img);
 

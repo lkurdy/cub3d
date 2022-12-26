@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:54:22 by rben-tkh          #+#    #+#             */
-/*   Updated: 2022/12/15 15:54:23 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2022/12/26 20:43:00 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static int	size(const char *str, char set)
 	}
 	return (j);
 }
-
 
 static char	*ft_cpy(char *dest, const char *str, int n)
 {

@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:12:05 by rben-tkh          #+#    #+#             */
-/*   Updated: 2022/12/22 15:12:07 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2022/12/26 20:53:53 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int	main(int argc, char **argv)
 	t_data	img;
 
 	img.mlx = 0;
-	img.NO_path = 0;
-	img.SO_path = 0;
-	img.WE_path = 0;
-	img.EA_path = 0;
-	img.F_color = 0;
-	img.C_color = 0;
+	img.no_path = 0;
+	img.so_path = 0;
+	img.we_path = 0;
+	img.ea_path = 0;
+	img.f_color = 0;
+	img.c_color = 0;
 	img.map = 0;
 	img.pos = 0;
 	if (parsing(argc, argv, &img, 0))

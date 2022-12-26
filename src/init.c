@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 07:19:14 by rben-tkh          #+#    #+#             */
-/*   Updated: 2022/12/12 07:19:14 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2022/12/26 20:44:36 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*init_strfd(int fd)
 	return (free(buffer), strfd);
 }
 
-static int		*init_color(char *str)
+static int	*init_color(char *str)
 {
 	int	*color;
 	int	i;
@@ -123,23 +123,23 @@ int	init_data(char *strfd, t_data *data, char *info, int i)
 	{
 		info = init_path(strfd, &data->pos, 0);
 		if (info && data->pos && data->pos == 'N')
-			data->NO_path = ft_strdup(info);
+			data->no_path = ft_strdup(info);
 		else if (info && data->pos && data->pos == 'S')
-			data->SO_path = ft_strdup(info);
+			data->so_path = ft_strdup(info);
 		else if (info && data->pos && data->pos == 'W')
-			data->WE_path = ft_strdup(info);
+			data->we_path = ft_strdup(info);
 		else if (info && data->pos && data->pos == 'E')
-			data->EA_path = ft_strdup(info);
+			data->ea_path = ft_strdup(info);
 		else if (info && data->pos && data->pos == 'F')
-			data->F_color = init_color(ft_strdup(info));
+			data->f_color = init_color(ft_strdup(info));
 		else if (info && data->pos && data->pos == 'C')
-			data->C_color = init_color(ft_strdup(info));
+			data->c_color = init_color(ft_strdup(info));
 		else
 			return (write(2, "Error\nInvalid data\n", 19), free(info), -1);
 		free(info);
 	}
-	if (!data->NO_path || !data->SO_path || !data->WE_path || !data->EA_path
-		|| !data->F_color || !data->C_color)
+	if (!data->no_path || !data->so_path || !data->we_path || !data->ea_path
+		|| !data->f_color || !data->c_color)
 		return (write(2, "Error\nInvalid data\n", 19), -1);
 	if (check_map(init_map(strfd, &data->map), &data->pos, 0, 0))
 		return (write(2, "Error\nInvalid map\n", 19), -1);

@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 09:04:11 by rben-tkh          #+#    #+#             */
-/*   Updated: 2022/12/12 09:04:12 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2022/12/26 20:43:40 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_atoi(char *str, int *i, int val)
 	{
 		nb = nb * 10 + (str[*i] - '0');
 		*i += 1;
-        count++;
+		count++;
 	}
 	if (nb > 255 || count > 3 || (str[*i] && val == 0)
 		|| (str[*i] && str[*i] != ',' && val == 1))
@@ -104,12 +104,12 @@ int	ft_close(t_data *img)
 		free(img->west);
 		free(img->south);
 	}
-	free(img->NO_path);
-	free(img->SO_path);
-	free(img->WE_path);
-	free(img->EA_path);
-	free(img->F_color);
-	free(img->C_color);
+	free(img->no_path);
+	free(img->so_path);
+	free(img->we_path);
+	free(img->ea_path);
+	free(img->f_color);
+	free(img->c_color);
 	ft_free(img->map);
 	exit (0);
 }

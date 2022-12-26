@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:17:13 by rben-tkh          #+#    #+#             */
-/*   Updated: 2022/12/15 18:17:15 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2022/12/26 20:51:44 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ int	check_map(char *map, char *pos, int i, int count)
 	while (map[i])
 	{
 		if (map[i + 1] && map[i] == '\n' && (map[i + 1] == '\n'
-			|| map[i + 1] == '\t'))
+				|| map[i + 1] == '\t'))
 			break ;
 		if ((map[i] != '0' && map[i] != '1' && map[i] != ' '
-			&& map[i] != '\n'))
+				&& map[i] != '\n'))
 		{
 			*pos = map[i];
 			count++;
@@ -98,7 +98,7 @@ int	check_map(char *map, char *pos, int i, int count)
 		i++;
 	}
 	if (count != 1 || (*pos != 'N' && *pos != 'S'
-		&& *pos != 'W' && *pos != 'E'))
+			&& *pos != 'W' && *pos != 'E'))
 		return (free(map), -1);
 	while (map[i] && (map[i] == '\n' || map[i] == ' ' || map[i] == '\t'))
 		i++;
@@ -109,28 +109,28 @@ int	check_map(char *map, char *pos, int i, int count)
 
 int	check_path(t_data *data, int fd, char c)
 {
-	fd = open(data->NO_path, O_RDONLY);
+	fd = open(data->no_path, O_RDONLY);
 	if (fd == -1)
-		return (write(2, "Error\n", 6), perror(data->NO_path), -1);
+		return (write(2, "Error\n", 6), perror(data->no_path), -1);
 	else if (read(fd, &c, 1) == -1)
-		return (write(2, "Error\n", 6), perror(data->NO_path), close(fd), -1);
+		return (write(2, "Error\n", 6), perror(data->no_path), close(fd), -1);
 	close(fd);
-	fd = open(data->SO_path, O_RDONLY);
+	fd = open(data->so_path, O_RDONLY);
 	if (fd == -1)
-		return (write(2, "Error\n", 6), perror(data->SO_path), -1);
+		return (write(2, "Error\n", 6), perror(data->so_path), -1);
 	else if (read(fd, &c, 1) == -1)
-		return (write(2, "Error\n", 6), perror(data->SO_path), close(fd), -1);
+		return (write(2, "Error\n", 6), perror(data->so_path), close(fd), -1);
 	close(fd);
-	fd = open(data->WE_path, O_RDONLY);
+	fd = open(data->we_path, O_RDONLY);
 	if (fd == -1)
-		return (write(2, "Error\n", 6), perror(data->WE_path), -1);
+		return (write(2, "Error\n", 6), perror(data->we_path), -1);
 	else if (read(fd, &c, 1) == -1)
-		return (write(2, "Error\n", 6), perror(data->WE_path), close(fd), -1);
+		return (write(2, "Error\n", 6), perror(data->we_path), close(fd), -1);
 	close(fd);
-	fd = open(data->EA_path, O_RDONLY);
+	fd = open(data->ea_path, O_RDONLY);
 	if (fd == -1)
-		return (write(2, "Error\n", 6), perror(data->EA_path), -1);
+		return (write(2, "Error\n", 6), perror(data->ea_path), -1);
 	else if (read(fd, &c, 1) == -1)
-		return (write(2, "Error\n", 6), perror(data->EA_path), close(fd), -1);
+		return (write(2, "Error\n", 6), perror(data->ea_path), close(fd), -1);
 	return (close(fd), 0);
 }
