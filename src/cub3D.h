@@ -101,7 +101,7 @@ double	find_y(char **map, t_data *img);
 int		dda(t_data *img);
 void	key(int keycode, t_data *img, double temp);
 
-/*----------------------------------DISPLAy----------------------------------*/
+/*----------------------------------DISPLAY----------------------------------*/
 
 void	display(t_data *img);
 
