@@ -68,7 +68,8 @@ int	dda(t_data *img)
 			img->map_y = 0;
 		if (img->map_x < 0)
 			img->map_x = 0;
-		if (!img->map[img->map_y] || !img->map[img->map_y][img->map_x])
+		if (!img->map[img->map_y] || !img->map[img->map_y][img->map_x]
+				|| img->map[img->map_y][img->map_x] == ' ')
 			return (img->wall = -1, 0);
 		if (img->map[img->map_y][img->map_x] == '1')
 			return (1);
@@ -81,7 +82,8 @@ static void	walk_check(t_data *img, double sumy, double sumX)
 	if ((int)sumy >= 0 && img->map[(int)sumy])
 	{
 		img->y = sumy;
-		if ((int)sumX >= 0 && img->map[(int)sumy][(int)sumX])
+		if ((int)sumX >= 0 && img->map[(int)sumy][(int)sumX]
+				&& img->map[(int)sumy][(int)sumX] != ' ')
 			img->x = sumX;
 	}
 }
