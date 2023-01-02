@@ -76,7 +76,7 @@ void	get_on_the_floor(t_data *img)
 	}
 }
 
-int	get_color(t_data *img, float start, int line, t_pic	*texture)
+int	get_color(t_data *img, float start, int line, t_pic *texture)
 {
 	int		color;
 	double	x_text;
