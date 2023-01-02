@@ -83,12 +83,12 @@ int	get_color(t_data *img, float start, int line, t_pic	*texture)
 	double	x_wall;
 	double	y_text;
 
-	if (img->ray_x > 0 && img->side)
-		texture = img->west;
-	if (img->ray_x < 0 && img->side)
+	if (img->ray_x > 0 && !img->side)
 		texture = img->east;
-	if (img->ray_y < 0 && !img->side)
-		texture = img->south;
+	if (img->ray_x < 0 && !img->side)
+		texture = img->west;
+	if (img->ray_y < 0 && img->side)
+		texture = img->north;
 	if (img->side == 0)
 		x_wall = img->y + img->wall * img->ray_y;
 	else

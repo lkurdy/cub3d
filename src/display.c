@@ -32,7 +32,7 @@ static void	draw(t_data *img, int x)
 	while (start < end)
 	{
 		img->pic->buf[(img->pic->width * start) + x] \
-		= get_color(img, start, line, img->north);
+		= get_color(img, start, line, img->south);
 		start++;
 	}
 }
