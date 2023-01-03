@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:12:13 by rben-tkh          #+#    #+#             */
-/*   Updated: 2022/12/26 20:56:52 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/03 17:01:32 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,31 +76,18 @@ void	get_on_the_floor(t_data *img)
 	}
 }
 
-int	get_color(t_data *img, float start, int line, t_pic *texture)
+int	skip_whitespaces(char *str, int *i)
 {
-	int		color;
-	double	x_text;
-	double	x_wall;
-	double	y_text;
+	int	nl;
 
-	if (img->ray_x > 0 && !img->side)
-		texture = img->east;
-	if (img->ray_x < 0 && !img->side)
-		texture = img->west;
-	if (img->ray_y < 0 && img->side)
-		texture = img->north;
-	if (img->side == 0)
-		x_wall = img->y + img->wall * img->ray_y;
-	else
-		x_wall = img->x + img->wall * img->ray_x;
-	x_wall -= floor((x_wall));
-	x_text = (int)(x_wall * (double)(texture->width));
-	if (img->side == 0 && img->ray_x > 0)
-		x_text = texture->width - x_text - 1;
-	if (img->side == 1 && img->ray_y < 0)
-		x_text = texture->width - x_text - 1;
-	color = start * 256 - img->height * 128 + line * 128;
-	y_text = ((color * texture->height) / line) / 256;
-	color = texture->buf[(int)(y_text * texture->width + x_text)];
-	return (color);
+	nl = 0;
+	while (str[*i] && (str[*i] == '\n' || str[*i] == ' ' || str[*i] == '\t'))
+	{
+		if (str[*i] == '\n')
+			nl++;
+		*i += 1;
+	}
+	if (!nl)
+		return (-1);
+	return (0);
 }

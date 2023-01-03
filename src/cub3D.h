@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 06:57:31 by rben-tkh          #+#    #+#             */
-/*   Updated: 2022/12/26 20:56:36 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/03 17:00:28 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ void	key(int keycode, t_data *img, double temp);
 
 /*----------------------------------DISPLAY----------------------------------*/
 
-void	display(t_data *img);
+t_pic	*new_pic(t_data *img, int width, int height, int x);
+int		ray(void *param);
 
 /*-----------------------------------UTILS-----------------------------------*/
 
@@ -111,7 +112,7 @@ int		press(int keycode, t_data *img);
 int		release(int keycode, t_data *img);
 void	get_pos(t_data *img);
 void	get_on_the_floor(t_data *img);
-int		get_color(t_data *img, float start, int line, t_pic	*texture);
+int		skip_whitespaces(char *str, int *i);
 
 /*-----------------------------------LIBFT-----------------------------------*/
 

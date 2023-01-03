@@ -6,11 +6,40 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 11:28:30 by rben-tkh          #+#    #+#             */
-/*   Updated: 2022/12/26 20:56:52 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:02:13 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+static int	put_texture(t_data *img, float start, int line, t_pic *texture)
+{
+	int		color;
+	double	x_text;
+	double	x_wall;
+	double	y_text;
+
+	if (img->ray_x > 0 && !img->side)
+		texture = img->east;
+	if (img->ray_x < 0 && !img->side)
+		texture = img->west;
+	if (img->ray_y < 0 && img->side)
+		texture = img->north;
+	if (img->side == 0)
+		x_wall = img->y + img->wall * img->ray_y;
+	else
+		x_wall = img->x + img->wall * img->ray_x;
+	x_wall -= floor((x_wall));
+	x_text = (int)(x_wall * (double)(texture->width));
+	if (img->side == 0 && img->ray_x > 0)
+		x_text = texture->width - x_text - 1;
+	if (img->side == 1 && img->ray_y < 0)
+		x_text = texture->width - x_text - 1;
+	color = start * 256 - img->height * 128 + line * 128;
+	y_text = ((color * texture->height) / line) / 256;
+	color = texture->buf[(int)(y_text * texture->width + x_text)];
+	return (color);
+}
 
 static void	draw(t_data *img, int x)
 {
@@ -32,7 +61,7 @@ static void	draw(t_data *img, int x)
 	while (start < end)
 	{
 		img->pic->buf[(img->pic->width * start) + x] \
-		= get_color(img, start, line, img->south);
+		= put_texture(img, start, line, img->south);
 		start++;
 	}
 }
@@ -66,7 +95,7 @@ static void	ray_utils(t_data *img)
 	}
 }
 
-static t_pic	*new_pic(t_data *img, int width, int height, int x)
+t_pic	*new_pic(t_data *img, int width, int height, int x)
 {
 	t_pic	*new;
 	int		bpp;
@@ -95,7 +124,7 @@ static t_pic	*new_pic(t_data *img, int width, int height, int x)
 	return (new);
 }
 
-static int	ray(void *param)
+int	ray(void *param)
 {
 	t_data	*img;
 	int		y;
@@ -122,25 +151,4 @@ static int	ray(void *param)
 	else if (img->key && img->key != 65307)
 		key(img->key, img, img->dir_x);
 	return (0);
-}
-
-void	display(t_data *img)
-{
-	img->height = 720;
-	img->length = 1480;
-	img->x = find_x(img->map, img);
-	img->y = find_y(img->map, img);
-	get_pos(img);
-	img->key = 0;
-	img->mlx = mlx_init();
-	img->win = mlx_new_window(img->mlx, img->length, img->height, "cub3D");
-	img->north = new_pic(img, 0, 0, 1);
-	img->east = new_pic(img, 0, 0, 2);
-	img->west = new_pic(img, 0, 0, 3);
-	img->south = new_pic(img, 0, 0, 4);
-	mlx_hook(img->win, 2, 1L << 0, &press, img);
-	mlx_hook(img->win, 3, 1L << 1, &release, img);
-	mlx_hook(img->win, 17, 0, ft_close, img);
-	mlx_loop_hook(img->mlx, &ray, img);
-	mlx_loop(img->mlx);
 }

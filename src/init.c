@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 07:19:14 by rben-tkh          #+#    #+#             */
-/*   Updated: 2023/01/03 15:20:23 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/03 17:08:26 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char	*init_path(char *str, char *pos, int j)
 		return (0);
 	while (str[i] && str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
 		i++;
-	while (str[i] && (str[i] == '\n' || str[i] == ' ' || str[i] == '\t'))
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 		i++;
 	while (str[++i] && str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
 		j++;
@@ -84,6 +84,8 @@ static char	*init_path(char *str, char *pos, int j)
 	while (str[i] && str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
 		path[j++] = str[i++];
 	path[j] = '\0';
+	if (skip_whitespaces(str, &i))
+		return (free(path), NULL);
 	return (path);
 }
 

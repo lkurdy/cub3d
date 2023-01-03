@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:12:05 by rben-tkh          #+#    #+#             */
-/*   Updated: 2022/12/26 20:53:53 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:00:08 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,27 @@ static int	parsing(int ac, char **av, t_data *data, int len)
 	if (init_data(strfd, data, 0, 6) || check_path(data, 0, 0))
 		return (close(fd), free(strfd), -1);
 	return (close(fd), free(strfd), 0);
+}
+
+static void	display(t_data *img)
+{
+	img->height = 720;
+	img->length = 1480;
+	img->x = find_x(img->map, img);
+	img->y = find_y(img->map, img);
+	get_pos(img);
+	img->key = 0;
+	img->mlx = mlx_init();
+	img->win = mlx_new_window(img->mlx, img->length, img->height, "cub3D");
+	img->north = new_pic(img, 0, 0, 1);
+	img->east = new_pic(img, 0, 0, 2);
+	img->west = new_pic(img, 0, 0, 3);
+	img->south = new_pic(img, 0, 0, 4);
+	mlx_hook(img->win, 2, 1L << 0, &press, img);
+	mlx_hook(img->win, 3, 1L << 1, &release, img);
+	mlx_hook(img->win, 17, 0, ft_close, img);
+	mlx_loop_hook(img->mlx, &ray, img);
+	mlx_loop(img->mlx);
 }
 
 int	main(int argc, char **argv)
