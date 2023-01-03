@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 09:04:11 by rben-tkh          #+#    #+#             */
-/*   Updated: 2022/12/26 20:43:40 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/03 21:27:19 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	ft_atoi(char *str, int *i, int val)
 
 	nb = 0;
 	count = 0;
+	while (str[*i] && (str[*i] == ' ' || str[*i] == '\t'))
+		*i += 1;
 	if (!str[*i] || !(str[*i] >= '0' && str[*i] <= '9'))
 		return (-1);
 	while (str[*i] && str[*i] >= '0' && str[*i] <= '9')
@@ -39,6 +41,8 @@ int	ft_atoi(char *str, int *i, int val)
 		*i += 1;
 		count++;
 	}
+	while (str[*i] && (str[*i] == ' ' || str[*i] == '\t'))
+		*i += 1;
 	if (nb > 255 || count > 3 || (str[*i] && val == 0)
 		|| (str[*i] && str[*i] != ',' && val == 1))
 		return (-1);
@@ -52,6 +56,8 @@ char	*ft_strdup(char *str)
 	char	*cpy;
 	int		i;
 
+	if (!str)
+		return (0);
 	i = 0;
 	cpy = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (!cpy)

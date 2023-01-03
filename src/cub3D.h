@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 06:57:31 by rben-tkh          #+#    #+#             */
-/*   Updated: 2023/01/03 17:00:28 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/03 21:26:52 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int		press(int keycode, t_data *img);
 int		release(int keycode, t_data *img);
 void	get_pos(t_data *img);
 void	get_on_the_floor(t_data *img);
-int		skip_whitespaces(char *str, int *i);
+int		get_path(char *str, int *i);
 
 /*-----------------------------------LIBFT-----------------------------------*/
 

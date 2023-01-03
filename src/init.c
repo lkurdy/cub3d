@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 07:19:14 by rben-tkh          #+#    #+#             */
-/*   Updated: 2023/01/03 17:08:26 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/03 21:46:49 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,24 @@ static int	*init_color(char *str)
 	return (free(str), color);
 }
 
-static char	*init_path(char *str, char *pos, int j)
+static char	*init_path(char *str, char *pos, int j, int checker)
 {
 	char		*path;
 	static int	i;
 
+	if (!checker)
+	{
+		while (str[i] && str[i] != '1')
+		{
+			if (str[i] != '1' && str[i] != '0' && str[i] != ' '
+				&& str[i] != '\t' && str[i] != '\n' )
+				return (0);
+		}
+		path = malloc(sizeof(char) * 1);
+		if (!path)
+			return (0);
+		return (path[0] = '\0', path);
+	}
 	while (str[i] && (str[i] == '\n' || str[i] == ' ' || str[i] == '\t'))
 		i++;
 	*pos = str[i];
@@ -74,73 +87,88 @@ static char	*init_path(char *str, char *pos, int j)
 		i++;
 	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 		i++;
-	while (str[++i] && str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
-		j++;
+	if (*pos == 'F' || *pos == 'C')
+	{
+		while (str[++i] && str[i] != '\n')
+			j++;
+	}
+	else
+	{
+		while (str[++i] && str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
+			j++;
+	}
 	path = malloc(sizeof(char) * (j + 3));
 	if (!path)
 		return (0);
 	i -= j + 1;
 	j = 0;
-	while (str[i] && str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
-		path[j++] = str[i++];
+	if (*pos == 'F' || *pos == 'C')
+	{
+		while (str[i] && str[i] != '\n')
+			path[j++] = str[i++];
+	}
+	else
+	{
+		while (str[i] && str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
+			path[j++] = str[i++];
+	}
 	path[j] = '\0';
-	if (skip_whitespaces(str, &i))
+	if (get_path(str, &i))
 		return (free(path), NULL);
 	return (path);
 }
 
-static char	*init_map(char *str, char ***data)
+static char	*init_map(char *str, char ***data, int i, int j)
 {
 	char	*map;
-	int		i;
-	int		j;
 
-	i = 0;
-	j = 0;
-	while (str[i] && j != 12)
-	{
-		while (str[i] && (str[i] == '\n' || str[i] == ' ' || str[i] == '\t'))
-			i++;
-		while (str[i] && str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
-			i++;
+	while (str[i] && str[i + 1])
+		i++;
+	while (str[i] != 'N' && str[i] != 'S' && str[i] != 'W'
+		&& str[i] != 'E' && str[i] != 'F' && str[i] != 'C')
+		i--;
+	while (str[i - 1] != 'N' && str[i - 1] != 'S' && str[i - 1] != 'W'
+		&& str[i - 1] != 'E' && str[i - 1] != 'F' && str[i - 1] != 'C')
+		i--;
+	while (str[i] && str[i] != '\n')
+		i++;
+	while (str[++i])
 		j++;
-	}
-	map = malloc(sizeof(char) * (ft_strlen(str) - i + 2));
+	map = malloc(sizeof(char) * (j + 1));
 	if (!map)
 		return (0);
+	i -= j;
 	j = 0;
 	while (str[i])
 		map[j++] = str[i++];
-	map[j] = '\0';
-	*data = ft_split(map, '\n');
-	return (map);
+	return (map[j] = '\0', *data = ft_split(map, '\n'), map);
 }
 
 int	init_data(char *strfd, t_data *data, char *info, int i)
 {
 	while (i--)
 	{
-		info = init_path(strfd, &data->pos, 0);
-		if (info && data->pos && data->pos == 'N')
+		info = init_path(strfd, &data->pos, 0, i);
+		if (info && data->pos && data->pos == 'N' && !data->no_path)
 			data->no_path = ft_strdup(info);
-		else if (info && data->pos && data->pos == 'S')
+		else if (info && data->pos && data->pos == 'S' && !data->so_path)
 			data->so_path = ft_strdup(info);
-		else if (info && data->pos && data->pos == 'W')
+		else if (info && data->pos && data->pos == 'W' && !data->we_path)
 			data->we_path = ft_strdup(info);
-		else if (info && data->pos && data->pos == 'E')
+		else if (info && data->pos && data->pos == 'E' && !data->ea_path)
 			data->ea_path = ft_strdup(info);
-		else if (info && data->pos && data->pos == 'F')
+		else if (info && data->pos && data->pos == 'F' && !data->f_color)
 			data->f_color = init_color(ft_strdup(info));
-		else if (info && data->pos && data->pos == 'C')
+		else if (info && data->pos && data->pos == 'C' && !data->c_color)
 			data->c_color = init_color(ft_strdup(info));
-		else
+		else if (i || (!i && !info))
 			return (write(2, "Error\nInvalid data\n", 19), free(info), -1);
 		free(info);
 	}
 	if (!data->no_path || !data->so_path || !data->we_path || !data->ea_path
 		|| !data->f_color || !data->c_color)
 		return (write(2, "Error\nInvalid data\n", 19), -1);
-	if (check_map(init_map(strfd, &data->map), &data->pos, 0, 0))
+	if (check_map(init_map(strfd, &data->map, 0, 0), &data->pos, 0, 0))
 		return (write(2, "Error\nInvalid map\n", 19), -1);
 	return (0);
 }

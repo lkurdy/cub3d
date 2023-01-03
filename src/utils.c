@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:12:13 by rben-tkh          #+#    #+#             */
-/*   Updated: 2023/01/03 17:01:32 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/03 18:34:14 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	get_on_the_floor(t_data *img)
 	}
 }
 
-int	skip_whitespaces(char *str, int *i)
+int	get_path(char *str, int *i)
 {
 	int	nl;
 

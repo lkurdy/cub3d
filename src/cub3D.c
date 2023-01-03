@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:12:05 by rben-tkh          #+#    #+#             */
-/*   Updated: 2023/01/03 16:00:08 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/03 21:35:07 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	parsing(int ac, char **av, t_data *data, int len)
 		write(2, "Error\n", 6);
 		return (perror(av[1]), free(strfd), close(fd), -1);
 	}
-	if (init_data(strfd, data, 0, 6) || check_path(data, 0, 0))
+	if (init_data(strfd, data, 0, 7) || check_path(data, 0, 0))
 		return (close(fd), free(strfd), -1);
 	return (close(fd), free(strfd), 0);
 }
