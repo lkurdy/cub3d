@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 07:19:14 by rben-tkh          #+#    #+#             */
-/*   Updated: 2022/12/26 20:44:36 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/03 15:20:23 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,13 @@ char	*init_strfd(int fd)
 	strfd[0] = '\0';
 	buffer = malloc(sizeof(char) * (42 + 1));
 	if (!buffer)
-		return (0);
+		return (free(strfd), NULL);
 	i = 1;
 	while (i > 0)
 	{
 		i = read(fd, buffer, 42);
 		if (i == -1)
-		{
-			free(buffer);
-			return (0);
-		}
+			return (free(strfd), free(buffer), NULL);
 		buffer[i] = '\0';
 		strfd = ft_strjoin(strfd, buffer);
 	}
