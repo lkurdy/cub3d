@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:12:05 by rben-tkh          #+#    #+#             */
-/*   Updated: 2023/01/03 21:35:07 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/04 17:10:34 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,23 @@ static int	parsing(int ac, char **av, t_data *data, int len)
 		write(2, "Error\n", 6);
 		return (perror(av[1]), free(strfd), close(fd), -1);
 	}
-	if (init_data(strfd, data, 0, 7) || check_path(data, 0, 0))
+	if (init_data(strfd, data, 0, 7) || check_texture(data, 0, 0))
 		return (close(fd), free(strfd), -1);
 	return (close(fd), free(strfd), 0);
+}
+
+static int	press(int keycode, t_data *img)
+{
+	img->key = 0;
+	img->key = keycode;
+	return (0);
+}
+
+static int	release(int keycode, t_data *img)
+{
+	(void)keycode;
+	img->key = 0;
+	return (0);
 }
 
 static void	display(t_data *img)
@@ -58,7 +72,7 @@ static void	display(t_data *img)
 	mlx_loop(img->mlx);
 }
 
-int	main(int argc, char **argv)
+int	main(int ac, char **av)
 {
 	t_data	img;
 
@@ -71,7 +85,7 @@ int	main(int argc, char **argv)
 	img.c_color = 0;
 	img.map = 0;
 	img.pos = 0;
-	if (parsing(argc, argv, &img, 0))
+	if (parsing(ac, av, &img, 0))
 		return (ft_close(&img), -1);
 	display(&img);
 	return (0);

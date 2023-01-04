@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:17:13 by rben-tkh          #+#    #+#             */
-/*   Updated: 2023/01/03 16:48:29 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/04 17:03:39 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	check_map(char *map, char *pos, int i, int count)
 	return (check_exit(ft_split(map, '\n'), map));
 }
 
-int	check_path(t_data *data, int fd, char c)
+int	check_texture(t_data *data, int fd, char c)
 {
 	fd = open(data->no_path, O_RDONLY);
 	if (fd == -1)

@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 06:57:31 by rben-tkh          #+#    #+#             */
-/*   Updated: 2023/01/03 21:26:52 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/04 17:37:34 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		init_data(char *strfd, t_data *data, char *info, int i);
 
 int		check_id(char *str, int i, char c);
 int		check_map(char *map, char *pos, int i, int count);
-int		check_path(t_data *data, int fd, char c);
+int		check_texture(t_data *data, int fd, char c);
 
 /*---------------------------------FT_SPLIT----------------------------------*/
 
@@ -108,11 +108,10 @@ int		ray(void *param);
 
 /*-----------------------------------UTILS-----------------------------------*/
 
-int		press(int keycode, t_data *img);
-int		release(int keycode, t_data *img);
 void	get_pos(t_data *img);
 void	get_on_the_floor(t_data *img);
-int		get_path(char *str, int *i);
+int		get_pathlen(char *str, int *i, char pos);
+char	*get_path(char *str, int *i, int j, char pos);
 
 /*-----------------------------------LIBFT-----------------------------------*/
 
