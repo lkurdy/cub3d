@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:12:05 by rben-tkh          #+#    #+#             */
-/*   Updated: 2023/01/04 17:10:34 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/04 18:03:46 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,11 @@ int	main(int ac, char **av)
 	img.map = 0;
 	img.pos = 0;
 	if (parsing(ac, av, &img, 0))
-		return (ft_close(&img), -1);
+	{
+		img.ecode = -1;
+		ft_close(&img);
+	}
+	img.ecode = 0;
 	display(&img);
 	return (0);
 }

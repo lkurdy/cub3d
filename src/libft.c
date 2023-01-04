@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 09:04:11 by rben-tkh          #+#    #+#             */
-/*   Updated: 2023/01/03 21:27:19 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/04 18:04:21 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,5 @@ int	ft_close(t_data *img)
 	free(img->f_color);
 	free(img->c_color);
 	ft_free(img->map);
-	exit (0);
+	exit (img->ecode);
 }

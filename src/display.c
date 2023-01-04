@@ -6,7 +6,7 @@
 /*   By: rben-tkh <rben-tkh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 11:28:30 by rben-tkh          #+#    #+#             */
-/*   Updated: 2023/01/03 16:02:13 by rben-tkh         ###   ########.fr       */
+/*   Updated: 2023/01/04 18:05:02 by rben-tkh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int	ray(void *param)
 	mlx_destroy_image(img->mlx, img->pic->img);
 	free(img->pic);
 	if (img->key && img->key == 65307)
-		return (ft_close(img), 0);
+		ft_close(img);
 	else if (img->key && img->key != 65307)
 		key(img->key, img, img->dir_x);
 	return (0);
