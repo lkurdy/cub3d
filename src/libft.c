@@ -35,6 +35,8 @@ int	ft_atoi(char *str, int *i, int val)
 		*i += 1;
 	if (!str[*i] || !(str[*i] >= '0' && str[*i] <= '9'))
 		return (-1);
+	while (str[*i] && str[*i] == '0')
+		*i += 1;
 	while (str[*i] && str[*i] >= '0' && str[*i] <= '9')
 	{
 		nb = nb * 10 + (str[*i] - '0');

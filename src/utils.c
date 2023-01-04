@@ -75,19 +75,3 @@ void	get_on_the_floor(t_data *img)
 		i++;
 	}
 }
-
-int	get_path(char *str, int *i)
-{
-	int	nl;
-
-	nl = 0;
-	while (str[*i] && (str[*i] == '\n' || str[*i] == ' ' || str[*i] == '\t'))
-	{
-		if (str[*i] == '\n')
-			nl++;
-		*i += 1;
-	}
-	if (!nl)
-		return (-1);
-	return (0);
-}

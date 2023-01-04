@@ -65,21 +65,22 @@ static char	*init_path(char *str, char *pos, int j, int checker)
 	char		*path;
 	static int	i;
 
-	if (!checker)
-	{
-		while (str[i] && str[i] != '1')
-		{
-			if (str[i] != '1' && str[i] != '0' && str[i] != ' '
-				&& str[i] != '\t' && str[i] != '\n' )
-				return (0);
-		}
-		path = malloc(sizeof(char) * 1);
-		if (!path)
-			return (0);
-		return (path[0] = '\0', path);
-	}
 	while (str[i] && (str[i] == '\n' || str[i] == ' ' || str[i] == '\t'))
 		i++;
+	if (!checker)
+	{
+		while (str[i++])
+		{
+			if (str[i] != '1' && str[i] != '0' && str[i] != ' '
+				&& str[i] != '\t' && str[i] != '\n')
+				j++;
+		}
+		path = malloc(sizeof(char));
+		if (!path || j != 2)
+			return (free(path), NULL);
+		return (path[0] = '\0', path);
+	}
+	j = 0;
 	*pos = str[i];
 	if (check_id(str, (i + 1), *pos))
 		return (0);
@@ -87,33 +88,33 @@ static char	*init_path(char *str, char *pos, int j, int checker)
 		i++;
 	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 		i++;
-	if (*pos == 'F' || *pos == 'C')
+	while (str[++i] && str[i] != '\n')
 	{
-		while (str[++i] && str[i] != '\n')
-			j++;
+		if (*pos != 'F' && *pos != 'C' && (str[i] == ' ' || str[i] == '\t'))
+			break ;
+		j++;
 	}
-	else
-	{
-		while (str[++i] && str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
-			j++;
-	}
-	path = malloc(sizeof(char) * (j + 3));
+	path = malloc(sizeof(char) * (j + 2));
 	if (!path)
 		return (0);
 	i -= j + 1;
 	j = 0;
-	if (*pos == 'F' || *pos == 'C')
+	while (str[i] && str[i] != '\n')
 	{
-		while (str[i] && str[i] != '\n')
-			path[j++] = str[i++];
-	}
-	else
-	{
-		while (str[i] && str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
-			path[j++] = str[i++];
+		if (*pos != 'F' && *pos != 'C' && (str[i] == ' ' || str[i] == '\t'))
+			break ;
+		path[j++] = str[i++];
 	}
 	path[j] = '\0';
-	if (get_path(str, &i))
+	j = 0;
+	while (str[i] && (str[i] == '\n' || str[i] == ' ' || str[i] == '\t'))
+	{
+		i++;
+		if (str[i] == '\n')
+			j++;
+		i++;
+	}
+	if (!j)
 		return (free(path), NULL);
 	return (path);
 }
