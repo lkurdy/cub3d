@@ -1,6 +1,6 @@
 NAME			=	cub3D
 
-CFLAGS			=	-g3 -Wall -Wextra -Werror -I/usr/include -Imlx -MMD -c
+CFLAGS			=	-Wall -Wextra -Werror -I/usr/include -Imlx -MMD -c
 MLX				=	-Lmlx -lmlx_Linux -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o
 
 DIR_SRC			=	src
