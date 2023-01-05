@@ -37,7 +37,7 @@ char	*init_strfd(int fd)
 	return (free(buffer), strfd);
 }
 
-static int	*init_color(char *str)
+int	*init_color(char *str)
 {
 	int	*color;
 	int	i;
@@ -60,7 +60,7 @@ static int	*init_color(char *str)
 	return (free(str), color);
 }
 
-static char	*init_path(char *str, char *pos, int j, int *checker)
+char	*init_path(char *str, char *pos, int j, int *checker)
 {
 	static int	i;
 
@@ -83,7 +83,7 @@ static char	*init_path(char *str, char *pos, int j, int *checker)
 	return (get_path(str, &i, get_pathlen(str, &i, *pos), *pos));
 }
 
-static char	*init_map(char *str, char ***data, int i, int j)
+char	*init_map(char *str, char ***data, int i, int j)
 {
 	char	*map;
 
@@ -109,31 +109,31 @@ static char	*init_map(char *str, char ***data, int i, int j)
 	return (map[j] = '\0', *data = ft_split(map, '\n'), map);
 }
 
-int	init_data(char *strfd, t_data *data, char *info, int i)
+void	init_pos(t_data *img)
 {
-	while (i--)
+	img->dir_x = 0;
+	img->dir_y = -1;
+	img->planx = 0.66;
+	img->plany = 0;
+	if (img->pos == 'E')
 	{
-		info = init_path(strfd, &data->pos, 0, &i);
-		if (info && data->pos && data->pos == 'N' && !data->no_path)
-			data->no_path = ft_strdup(info);
-		else if (info && data->pos && data->pos == 'S' && !data->so_path)
-			data->so_path = ft_strdup(info);
-		else if (info && data->pos && data->pos == 'W' && !data->we_path)
-			data->we_path = ft_strdup(info);
-		else if (info && data->pos && data->pos == 'E' && !data->ea_path)
-			data->ea_path = ft_strdup(info);
-		else if (info && data->pos && data->pos == 'F' && !data->f_color)
-			data->f_color = init_color(ft_strdup(info));
-		else if (info && data->pos && data->pos == 'C' && !data->c_color)
-			data->c_color = init_color(ft_strdup(info));
-		else if (i || i == -42)
-			return (write(2, "Error\nInvalid data\n", 19), free(info), -1);
-		free(info);
+		img->dir_x = 1;
+		img->dir_y = 0;
+		img->planx = 0;
+		img->plany = 0.66;
 	}
-	if (!data->no_path || !data->so_path || !data->we_path || !data->ea_path
-		|| !data->f_color || !data->c_color)
-		return (write(2, "Error\nInvalid data\n", 19), -1);
-	if (check_map(init_map(strfd, &data->map, 0, 0), &data->pos, 0, 0))
-		return (write(2, "Error\nInvalid map\n", 19), -1);
-	return (0);
+	else if (img->pos == 'W')
+	{
+		img->dir_x = -1;
+		img->dir_y = 0;
+		img->planx = 0;
+		img->plany = -0.66;
+	}
+	else if (img->pos == 'S')
+	{
+		img->dir_x = 0;
+		img->dir_y = 1;
+		img->planx = -0.66;
+		img->plany = 0;
+	}
 }

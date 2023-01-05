@@ -1,6 +1,6 @@
-NO ./tex/plank.xpm
-SO ./tex/plank.xpm
-WE ./tex/plank.xpm
+NO ./tex/weird.xpm
+SO ./tex/metal.xpm
+WE ./tex/rock.xpm
 EA ./tex/plank.xpm
 
 F 30,20,10
