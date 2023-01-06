@@ -12,18 +12,33 @@
 
 #include "cub3D.h"
 
-int	press(int keycode, t_data *img)
+void	get_pos(t_data *img)
 {
-	img->key = 0;
-	img->key = keycode;
-	return (0);
-}
-
-int	release(int keycode, t_data *img)
-{
-	(void)keycode;
-	img->key = 0;
-	return (0);
+	img->dir_x = 0;
+	img->dir_y = -1;
+	img->planx = 0.66;
+	img->plany = 0;
+	if (img->pos == 'E')
+	{
+		img->dir_x = 1;
+		img->dir_y = 0;
+		img->planx = 0;
+		img->plany = 0.66;
+	}
+	else if (img->pos == 'W')
+	{
+		img->dir_x = -1;
+		img->dir_y = 0;
+		img->planx = 0;
+		img->plany = -0.66;
+	}
+	else if (img->pos == 'S')
+	{
+		img->dir_x = 0;
+		img->dir_y = 1;
+		img->planx = -0.66;
+		img->plany = 0;
+	}
 }
 
 void	get_on_the_floor(t_data *img)

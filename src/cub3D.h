@@ -82,10 +82,7 @@ typedef struct s_data
 /*---------------------------------INIT_DATA---------------------------------*/
 
 char	*init_strfd(int fd);
-int		*init_color(char *str);
-char	*init_path(char *str, char *pos, int j, int *checker);
-char	*init_map(char *str, char ***data, int i, int j);
-void	init_pos(t_data *img);
+int		init_data(char *strfd, t_data *data, char *info, int i);
 
 /*----------------------------------PARSING----------------------------------*/
 
@@ -112,8 +109,7 @@ int		ray(void *param);
 
 /*-----------------------------------UTILS-----------------------------------*/
 
-int		press(int keycode, t_data *img);
-int		release(int keycode, t_data *img);
+void	get_pos(t_data *img);
 void	get_on_the_floor(t_data *img);
 int		get_pathlen(char *str, int *i, char pos);
 char	*get_path(char *str, int *i, int j, char pos);

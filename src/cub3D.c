@@ -12,35 +12,6 @@
 
 #include "cub3D.h"
 
-static int	init(char *strfd, t_data *data, char *info, int i)
-{
-	while (i--)
-	{
-		info = init_path(strfd, &data->pos, 0, &i);
-		if (info && data->pos && data->pos == 'N' && !data->no_path)
-			data->no_path = ft_strdup(info);
-		else if (info && data->pos && data->pos == 'S' && !data->so_path)
-			data->so_path = ft_strdup(info);
-		else if (info && data->pos && data->pos == 'W' && !data->we_path)
-			data->we_path = ft_strdup(info);
-		else if (info && data->pos && data->pos == 'E' && !data->ea_path)
-			data->ea_path = ft_strdup(info);
-		else if (info && data->pos && data->pos == 'F' && !data->f_color)
-			data->f_color = init_color(ft_strdup(info));
-		else if (info && data->pos && data->pos == 'C' && !data->c_color)
-			data->c_color = init_color(ft_strdup(info));
-		else if (i || i == -42)
-			return (write(2, "Error\nInvalid data\n", 19), free(info), -1);
-		free(info);
-	}
-	if (!data->no_path || !data->so_path || !data->we_path || !data->ea_path
-		|| !data->f_color || !data->c_color)
-		return (write(2, "Error\nInvalid data\n", 19), -1);
-	if (check_map(init_map(strfd, &data->map, 0, 0), &data->pos, 0, 0))
-		return (write(2, "Error\nInvalid map\n", 19), -1);
-	return (0);
-}
-
 static int	parsing(int ac, char **av, t_data *data, int len)
 {
 	char	*strfd;
@@ -61,9 +32,23 @@ static int	parsing(int ac, char **av, t_data *data, int len)
 		write(2, "Error\n", 6);
 		return (perror(av[1]), free(strfd), close(fd), -1);
 	}
-	if (init(strfd, data, 0, 7) || check_texture(data, 0, 0))
+	if (init_data(strfd, data, 0, 7) || check_texture(data, 0, 0))
 		return (close(fd), free(strfd), -1);
 	return (close(fd), free(strfd), 0);
+}
+
+static int	press(int keycode, t_data *img)
+{
+	img->key = 0;
+	img->key = keycode;
+	return (0);
+}
+
+static int	release(int keycode, t_data *img)
+{
+	(void)keycode;
+	img->key = 0;
+	return (0);
 }
 
 static void	display(t_data *img)
@@ -72,7 +57,7 @@ static void	display(t_data *img)
 	img->length = 1480;
 	img->x = find_x(img->map, img);
 	img->y = find_y(img->map, img);
-	init_pos(img);
+	get_pos(img);
 	img->key = 0;
 	img->mlx = mlx_init();
 	img->win = mlx_new_window(img->mlx, img->length, img->height, "cub3D");
